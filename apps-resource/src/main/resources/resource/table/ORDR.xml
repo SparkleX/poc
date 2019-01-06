@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<table xmlns="urn:next:table">
+	<name>ORDR</name>
+	<column>
+		<name>Id</name>
+	</column>
+	<column>
+		<name>BpId</name>
+	</column>
+</table>

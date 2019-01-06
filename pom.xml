@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.next</groupId>
+	<artifactId>poc</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
+	    <maven.compiler.source>11</maven.compiler.source>
+    	<maven.compiler.target>11</maven.compiler.target>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencyManagement>
+		<dependencies>
+			<!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct-jdk8 -->
+			<dependency>
+				<groupId>org.mapstruct</groupId>
+				<artifactId>mapstruct-jdk8</artifactId>
+				<version>${org.mapstruct.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/junit/junit -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.12</version>
+				<scope>test</scope>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-test</artifactId>
+				<version>2.1.1.RELEASE</version>
+				<scope>test</scope>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter</artifactId>
+				<version>2.1.1.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>2.1.1.RELEASE</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-jpa</artifactId>
+				<version>2.1.1.RELEASE</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>1.9.3</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>5.3.7.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.persistence</groupId>
+				<artifactId>org.eclipse.persistence.jpa</artifactId>
+				<version>2.7.3</version>
+			</dependency>
+			<dependency>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-core</artifactId>
+				<version>5.2.4</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-jdbc</artifactId>
+				<version>2.1.1.RELEASE</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-openfeign -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-openfeign</artifactId>
+				<version>2.0.2.RELEASE</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>2.9.7</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>2.9.7</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-httpclient -->
+			<dependency>
+				<groupId>io.github.openfeign</groupId>
+				<artifactId>feign-httpclient</artifactId>
+				<version>9.7.0</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-jackson -->
+			<dependency>
+				<groupId>io.github.openfeign</groupId>
+				<artifactId>feign-jackson</artifactId>
+				<version>9.7.0</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>8.0.13</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.apache.olingo/olingo-odata2-api-annotation -->
+			<dependency>
+				<groupId>org.apache.olingo</groupId>
+				<artifactId>olingo-odata2-api-annotation</artifactId>
+				<version>2.0.10</version>
+			</dependency>
+			<dependency>
+				<groupId>org.glassfish.jaxb</groupId>
+				<artifactId>jaxb-runtime</artifactId>
+				<version>2.3.1</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<modules>
+		<module>infra-schema</module>
+		<module>apps-resource</module>
+		<module>infra-resource-compiler</module>
+		<module>apps-resource-gen</module>
+	</modules>
+</project>
