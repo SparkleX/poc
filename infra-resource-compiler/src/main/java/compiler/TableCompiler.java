@@ -44,6 +44,8 @@ public class TableCompiler implements InitializingBean {
 	TableCompiler() throws JAXBException {
 		jaxbContext = JAXBContext.newInstance(Table.class);
 		jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+		jaxbUnmarshaller.setProperty("com.sun.xml.bind.ObjectFactory",new ObjectFactoryImpl());
+
 	}
 
 	void genarateCode(Path path) {

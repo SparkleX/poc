@@ -1,10 +1,32 @@
 <?xml version="1.0"?>
 <table xmlns="urn:next:table">
 	<name>ORDR</name>
+	<entityName>SalesOrder</entityName>
 	<column>
 		<name>Id</name>
+		<type>int</type>
+		<length>0</length>
 	</column>
 	<column>
 		<name>BpId</name>
+		<type>int</type>
+		<length>0</length>
 	</column>
+	<column>
+		<name>Remarks</name>
+		<type>string</type>
+		<length>255</length>
+	</column>
+
+	<column>
+		<name>DocTotal</name>
+		<type>decimal</type>
+		<length>0</length>
+	</column>
+	<column>
+		<name>CreateDate</name>
+		<type>datetime</type>
+		<length>0</length>
+	</column>
+
 </table>
