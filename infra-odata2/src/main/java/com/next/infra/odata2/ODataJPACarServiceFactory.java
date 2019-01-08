@@ -22,11 +22,14 @@ public class ODataJPACarServiceFactory extends ODataJPAServiceFactory {
 	}
 
 	@Override
-	public ODataJPAContext initializeODataJPAContext() throws ODataJPARuntimeException {
+	public ODataJPAContext initializeODataJPAContext() throws ODataJPARuntimeException 
+	{
 		ODataJPAContext oDataJPAContext = getODataJPAContext();
 		oDataJPAContext.setEntityManagerFactory(emf);
-		oDataJPAContext.setPersistenceUnitName("default");
-
+		//oDataJPAContext.setPersistenceUnitName("default");
+		
+		//check org.apache.olingo.odata2.jpa.processor.core.access.model.loadMappingModelInputStream
+		oDataJPAContext.setJPAEdmMappingModel("mapping.xml");
 		oDataJPAContext.setPageSize(PAGE_SIZE);
 		setDetailErrors(true);
 		oDataJPAContext.setJPAEdmExtension((JPAEdmExtension) new SalesOrderProcessingExtension());

@@ -8,11 +8,19 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.apache.olingo.odata2.api.annotation.edm.EdmEntitySet;
+import org.apache.olingo.odata2.api.annotation.edm.EdmEntityType;
+
+import javax.persistence.Id;
+
+//@EdmEntityType(name="SalesOrder",namespace="com.next")
+@EdmEntitySet(name="SalesOrders")
 @SuppressWarnings("all")
 @Entity
 @Table(name="ORDR")
 public class BmoORDR
 {
+	@Id
     @Column
     Integer Id;
 	public Integer getId(){return Id;}

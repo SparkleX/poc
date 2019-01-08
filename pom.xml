@@ -157,6 +157,13 @@
 				<artifactId>jaxb-runtime</artifactId>
 				<version>2.3.1</version>
 			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.apache.olingo/olingo-odata2-api-annotation -->
+			<dependency>
+			    <groupId>org.apache.olingo</groupId>
+			    <artifactId>olingo-odata2-api-annotation</artifactId>
+			    <version>2.0.10</version>
+			</dependency>
+			
 		</dependencies>
 	</dependencyManagement>
 
