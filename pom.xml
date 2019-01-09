@@ -173,5 +173,6 @@
 		<module>infra-resource-compiler</module>
 		<module>apps-resource-gen</module>
 		<module>infra-odata2</module>
+		<module>infra-odata4</module>
 	</modules>
 </project>
