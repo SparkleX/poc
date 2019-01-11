@@ -159,11 +159,35 @@
 			</dependency>
 			<!-- https://mvnrepository.com/artifact/org.apache.olingo/olingo-odata2-api-annotation -->
 			<dependency>
-			    <groupId>org.apache.olingo</groupId>
-			    <artifactId>olingo-odata2-api-annotation</artifactId>
-			    <version>2.0.10</version>
+				<groupId>org.apache.olingo</groupId>
+				<artifactId>olingo-odata2-api-annotation</artifactId>
+				<version>2.0.10</version>
 			</dependency>
-			
+			<dependency>
+				<groupId>org.apache.olingo</groupId>
+				<artifactId>odata-commons-core</artifactId>
+				<version>4.5.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sap.olingo</groupId>
+				<artifactId>odata-jpa-processor</artifactId>
+				<version>0.2.10-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sap.olingo</groupId>
+				<artifactId>odata-jpa-metadata</artifactId>
+				<version>0.2.10-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.olingo</groupId>
+				<artifactId>odata-server-api</artifactId>
+				<version>4.5.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.yaml</groupId>
+				<artifactId>snakeyaml</artifactId>
+				<version>1.23</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

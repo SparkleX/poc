@@ -1,6 +1,7 @@
 package gen.table;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 
 
@@ -8,13 +9,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.apache.olingo.odata2.api.annotation.edm.EdmEntitySet;
-import org.apache.olingo.odata2.api.annotation.edm.EdmEntityType;
-
 import javax.persistence.Id;
 
 //@EdmEntityType(name="SalesOrder",namespace="com.next")
-@EdmEntitySet(name="SalesOrders")
+//@EdmEntitySet(name="SalesOrders")
 @SuppressWarnings("all")
 @Entity
 @Table(name="ORDR")
@@ -37,8 +35,9 @@ public class BmoORDR
     BigDecimal DocTotal;
 	public BigDecimal getDocTotal(){return DocTotal;}
 	public void setDocTotal(BigDecimal val){DocTotal=val;}
-    @Column
-    Date CreateDate;
-	public Date getCreateDate(){return CreateDate;}
-	public void setCreateDate(Date val){CreateDate=val;}
+	
+    @Column(name="CreateDate", columnDefinition = "TIMESTAMP (6)", precision=10)
+    Date  CreateDate;
+	public Date  getCreateDate(){return CreateDate;}
+	public void setCreateDate(Date  val){CreateDate=val;}
 }
