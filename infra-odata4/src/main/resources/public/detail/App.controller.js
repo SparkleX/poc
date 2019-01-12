@@ -1,10 +1,10 @@
 sap.ui.define([
 		'jquery.sap.global',
 		'sap/ui/core/mvc/Controller',
-		'sap/ui/model/odata/v2/ODataModel',
+		'sap/ui/model/odata/v4/ODataModel',
 		'sap/m/MessageToast',
 		"sap/ui/model/BindingMode"
-	], function(jQuery, Controller, JSONModel, MessageToast,BindingMode) {
+	], function(jQuery, Controller, ODataModel, MessageToast,BindingMode) {
 	"use strict";
 
 	var PageController = Controller.extend("help.App", {
@@ -14,7 +14,7 @@ sap.ui.define([
 			var oModel = view.getModel();
 
 
-			view.bindElement("/BmoORDRs(-1)",{$expand:'RDR1'});
+			view.bindElement("/BmoORDRs(-1)");//,{$expand:'RDR1'});
 
 		},
 		/*onReadSuccess: function(oData, oResponse)

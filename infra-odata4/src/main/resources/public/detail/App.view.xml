@@ -2,13 +2,15 @@
 	<Panel headerText="Sales Orders" class="sapUiResponsiveMargin" width="auto">
 		<content>
 			<Label text="Id" />
-			<Input id="id1" value="{path: 'Id', mode: 'TwoWay'}" valueLiveUpdate="true" />
+			<Input id="id1" value="{Id}" valueLiveUpdate="true" />
 			<Label text="BusinessPartner" />
-			<Input id="id2" value="{path: 'BpId', mode: 'TwoWay'}" valueLiveUpdate="true" />
+			<Input id="id2" value="{BpId}" valueLiveUpdate="true" />
 
 			<Label text="Doc Total" />
-			<Input id="id3" value="{path: 'DocTotal', mode: 'TwoWay'}" valueLiveUpdate="true" />
-			<table:Table rows="{RDR1}" title="Details" selectionMode="MultiToggle" visibleRowCount="7" paste="onPaste">
+			<Input id="id3" value="{DocTotal}" valueLiveUpdate="true" />
+			<table:Table rows="{path: 'RDR1',parameters: {expand: 'RDR1'}}" title="Details" selectionMode="MultiToggle" visibleRowCount="7" paste="onPaste">
+			
+			
 				<table:columns>
 					<table:Column width="11rem">
 						<Label text="Line Number" />
@@ -19,7 +21,7 @@
 					<table:Column width="11rem">
 						<Label text="ParentId" />
 						<table:template>
-							<Input value="{path: 'ParentId', mode: 'TwoWay'}" />
+							<Input value="{ParentId}" />
 						</table:template>
 					</table:Column>
 				</table:columns>
