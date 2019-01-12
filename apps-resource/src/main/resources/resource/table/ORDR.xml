@@ -2,7 +2,7 @@
 <table xmlns="urn:next:table">
 	<name>ORDR</name>
 	<entityName>SalesOrder</entityName>
-	<column>
+ 	<column>
 		<name>Id</name>
 		<type>int</type>
 		<length>0</length>
@@ -28,5 +28,4 @@
 		<type>datetime</type>
 		<length>0</length>
 	</column>
-
 </table>

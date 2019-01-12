@@ -1,25 +1,19 @@
 package gen.table;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.Date;
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import javax.persistence.Id;
+import javax.persistence.Table;
+import java.math.BigDecimal;
+import java.util.Date;
 
-//@EdmEntityType(name="SalesOrder",namespace="com.next")
-//@EdmEntitySet(name="SalesOrders")
 @SuppressWarnings("all")
 @Entity
 @Table(name="ORDR")
 public class BmoORDR
 {
-	@Id
     @Column
+    @Id
     Integer Id;
 	public Integer getId(){return Id;}
 	public void setId(Integer val){Id=val;}
@@ -35,9 +29,8 @@ public class BmoORDR
     BigDecimal DocTotal;
 	public BigDecimal getDocTotal(){return DocTotal;}
 	public void setDocTotal(BigDecimal val){DocTotal=val;}
-	
-    @Column(name="CreateDate", columnDefinition = "TIMESTAMP (6)", precision=10)
-    Date  CreateDate;
-	public Date  getCreateDate(){return CreateDate;}
-	public void setCreateDate(Date  val){CreateDate=val;}
+    @Column(precision=10)
+    Date CreateDate;
+	public Date getCreateDate(){return CreateDate;}
+	public void setCreateDate(Date val){CreateDate=val;}
 }
