@@ -1,10 +1,15 @@
 package gen.table;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 @SuppressWarnings("all")
@@ -33,4 +38,14 @@ public class BmoORDR
     Date CreateDate;
 	public Date getCreateDate(){return CreateDate;}
 	public void setCreateDate(Date val){CreateDate=val;}
+	
+	public Collection<BmoRDR1> getRDR1() {
+		return RDR1;
+	}
+	public void setRDR1(Collection<BmoRDR1> rDR1) {
+		RDR1 = rDR1;
+	}
+	@OneToMany(mappedBy="doc",fetch = FetchType.LAZY, cascade= CascadeType.ALL)
+	Collection<BmoRDR1> RDR1 = new ArrayList<>();
+
 }

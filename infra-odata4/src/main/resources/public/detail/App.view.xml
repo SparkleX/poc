@@ -4,22 +4,22 @@
 			<Label text="Id" />
 			<Input id="id1" value="{path: 'Id', mode: 'TwoWay'}" valueLiveUpdate="true" />
 			<Label text="BusinessPartner" />
-			<Input id="id2" value="{path: 'BusinessPartner', mode: 'TwoWay'}" valueLiveUpdate="true" />
+			<Input id="id2" value="{path: 'BpId', mode: 'TwoWay'}" valueLiveUpdate="true" />
 
 			<Label text="Doc Total" />
 			<Input id="id3" value="{path: 'DocTotal', mode: 'TwoWay'}" valueLiveUpdate="true" />
-			<table:Table rows="{/SalesOrderDetails}" title="Details" selectionMode="MultiToggle" visibleRowCount="7" paste="onPaste">
+			<table:Table rows="{RDR1}" title="Details" selectionMode="MultiToggle" visibleRowCount="7" paste="onPaste">
 				<table:columns>
 					<table:Column width="11rem">
 						<Label text="Line Number" />
 						<table:template>
-							<Text text="{LineNum}" wrapping="false" />
+							<Text text="{LineId}" wrapping="false" />
 						</table:template>
 					</table:Column>
 					<table:Column width="11rem">
-						<Label text="Price" />
+						<Label text="ParentId" />
 						<table:template>
-							<Input value="{path: 'Price', mode: 'TwoWay'}" />
+							<Input value="{path: 'ParentId', mode: 'TwoWay'}" />
 						</table:template>
 					</table:Column>
 				</table:columns>

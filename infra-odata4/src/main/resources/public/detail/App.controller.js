@@ -14,20 +14,8 @@ sap.ui.define([
 			var oModel = view.getModel();
 
 
-			view.bindElement("/SalesOrders(-1)");
-		/*	var oItem = this.byId("id3");
-			oItem.bindProperty("value",
-					{
-				path:"ItemName",
-				mode:BindingMode.TwoWay
-						}
-			);*/
-			//this.byId("id1").bindElement("/SalesOrders(-1)");
-		/*	var oModel = new sap.ui.model.odata.v2.ODataModel("http://localhost:8080/test");
-//			
-			oModel.read("/SalesOrders(-1)");
-			var oVar = oModel.getData("/SalesOrders(-1)");
-			this.getView().setModel(oModel);*/
+			view.bindElement("/BmoORDRs(-1)",{$expand:'RDR1'});
+
 		},
 		/*onReadSuccess: function(oData, oResponse)
 		{
@@ -48,7 +36,7 @@ sap.ui.define([
 		{
 			
 			var oView = this.getView();
-			var oItem = oView.byId("id3");
+			var oItem = oView.byId("id2");
 			//var itenName = oView.byId("id3").getValue();
 			
 			var oModel = oView.getModel();
@@ -57,7 +45,7 @@ sap.ui.define([
 			var oData = bindingContext.getObject();
 			//oModel.update(path, oData);
 			
-			oModel.submitChanges();
+			oModel.submitBatch("group1");
 			MessageToast.show(evt.getSource().getId());
 		}
 		

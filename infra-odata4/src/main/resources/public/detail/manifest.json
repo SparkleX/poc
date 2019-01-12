@@ -11,10 +11,10 @@
 		
 		"dataSources": {
 			"default": {
-				"uri": "http://localhost:8080/test",
+				"uri": "http://localhost:8080/test/",
 				"type": "OData",
 				"settings": {
-					"odataVersion": "2.0"
+					"odataVersion": "4.0"
 				}
 			}
 		}
@@ -43,8 +43,12 @@
 		"models": {
 			"": {
 				"dataSource": "default",
-				"operationMode" : "Server",
-				"defaultBindingMode":"TwoWay"
+				"settings" : {
+                    "synchronizationMode" : "None",
+                    "operationMode" : "Server",
+                    "updateGroupId" : "group1"
+                }
+				
 			}
 		}
 	}
