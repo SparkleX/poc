@@ -2,12 +2,10 @@ package gen.table;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Table;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
+import com.next.odata4.annotation.ODataProperty;
+import com.next.odata4.annotation.ODataTransient;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -16,22 +14,20 @@ import java.util.Date;
 @Table(name="RDR1")
 public class BmoRDR1
 {
+	@Id
     @Column
-    @Id
+	@ODataProperty(alias="Id") 
     Integer Id;
 	public Integer getId(){return Id;}
 	public void setId(Integer val){Id=val;}
-    @Column(name="ParentId")
+    @Column
+    @ODataTransient
     Integer ParentId;
 	public Integer getParentId(){return ParentId;}
 	public void setParentId(Integer val){ParentId=val;}
     @Column
+	@ODataProperty(alias="LineNumber") 
     Integer LineId;
 	public Integer getLineId(){return LineId;}
 	public void setLineId(Integer val){LineId=val;}
-	
-	
-	@ManyToOne(optional = false,fetch=FetchType.LAZY)
-	@JoinColumn(name="ParentId", insertable = false, updatable = false)
-	BmoORDR doc;
 }

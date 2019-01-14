@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 
 import com.next.infra.schema.Column;
 import com.next.infra.schema.ObjectFactory;
+import com.next.infra.schema.Table;
 
 
 @XmlRegistry
@@ -22,5 +23,8 @@ public class ObjectFactoryImpl extends ObjectFactory
     {
         return new ColumnImpl();
     }
-
+	@Override
+    public Table createTable() {
+        return new TableImpl();
+    }
 }

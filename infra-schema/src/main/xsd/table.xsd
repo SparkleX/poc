@@ -6,6 +6,7 @@
 				<xs:element name="name" type="xs:ID" />
 				<xs:element name="entityName" type="xs:string" />
 				<xs:element name="column" type="column" minOccurs="1" maxOccurs="unbounded" />
+				<xs:element name="key" type="columnName" minOccurs="1" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -14,6 +15,7 @@
 			<xs:element name="name" type="columnName" />
 			<xs:element name="type" type="columnType" />
 			<xs:element name="length" type="xs:int" />
+			<xs:element name="odataName" type="xs:string" />
 		</xs:sequence>
 	</xs:complexType>
 	<xs:simpleType name="columnType">
@@ -25,7 +27,7 @@
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="columnName">
-		<xs:restriction base="xs:ID">
+		<xs:restriction base="xs:string">
 			<xs:minLength value="2" />
 			<xs:maxLength value="10" />
 			<xs:pattern value="[A-Z][a-zA-Z0-9]+" />

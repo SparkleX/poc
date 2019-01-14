@@ -6,15 +6,19 @@
 		<name>Id</name>
 		<type>int</type>
 		<length>0</length>
+		<odataName>Id</odataName>
 	</column>
 	<column>
 		<name>ParentId</name>
 		<type>int</type>
 		<length>0</length>
+		<odataName></odataName>
 	</column>
 	<column>
 		<name>LineId</name>
 		<type>int</type>
 		<length>0</length>
+		<odataName>LineNumber</odataName>
 	</column>
+	<key>Id</key>
 </table>
