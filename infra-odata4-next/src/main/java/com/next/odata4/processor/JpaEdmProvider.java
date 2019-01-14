@@ -44,9 +44,15 @@ import org.apache.olingo.commons.api.edm.provider.CsdlPropertyRef;
 import org.apache.olingo.commons.api.edm.provider.CsdlReturnType;
 import org.apache.olingo.commons.api.edm.provider.CsdlSchema;
 
+import com.next.odata4.jpa.model.EntitySetsMap;
+import com.next.odata4.jpa.model.EntityTypeMap;
+import com.next.odata4.jpa.utils.EntitySetsCreator;
 import com.next.odata4.jpa.utils.EntityTypeUtil;
 
-public class DemoEdmProvider extends CsdlAbstractEdmProvider {
+public class JpaEdmProvider extends CsdlAbstractEdmProvider {
+
+	EntitySetsMap mapNameToEntitySet = new EntitySetsMap();
+	EntityTypeMap mapNameToEntityType = new EntityTypeMap(); 
 
 	// Service Namespace
 	public static final String NAMESPACE = "OData.Demo";
@@ -87,8 +93,24 @@ public class DemoEdmProvider extends CsdlAbstractEdmProvider {
 
 	private EntityManagerFactory emf;
 
-	public DemoEdmProvider(EntityManagerFactory emf) {
+	public JpaEdmProvider(EntityManagerFactory emf) 
+	{
 		this.emf = emf;
+		
+		EntitySetsCreator util = new EntitySetsCreator();
+		List<CsdlEntitySet> sets = util.getEntitySets(emf);
+		for(CsdlEntitySet o:sets)
+		{
+			mapNameToEntitySet.put(o.getName(), o);
+		}
+		
+		
+		EntityTypeUtil utilType = new EntityTypeUtil();
+		for(CsdlEntityType entityType:utilType.getEntityTypes(emf))
+		{
+			this.mapNameToEntityType.put(entityType.getName(), entityType);
+		}
+
 	}
 
 	@Override
@@ -244,7 +266,9 @@ public class DemoEdmProvider extends CsdlAbstractEdmProvider {
 			entityType.setHasStream(true);
 		}
 
-		return entityType;
+		if(entityType!=null) return entityType;
+		
+		return this.mapNameToEntityType.get(entityTypeName.getName());
 
 	}
 
@@ -289,8 +313,11 @@ public class DemoEdmProvider extends CsdlAbstractEdmProvider {
 				entitySet.setType(ET_ADVERTISEMENT_FQN);
 			}
 		}
-
-		return entitySet;
+		if(entitySet!=null)
+		{
+			return entitySet;
+		}
+		return mapNameToEntitySet.get(entitySetName);
 	}
 
 	@Override
@@ -318,8 +345,7 @@ public class DemoEdmProvider extends CsdlAbstractEdmProvider {
 		entityTypes.add(getEntityType(ET_PRODUCT_FQN));
 		entityTypes.add(getEntityType(ET_CATEGORY_FQN));
 		entityTypes.add(getEntityType(ET_ADVERTISEMENT_FQN));
-		EntityTypeUtil util = new EntityTypeUtil();
-		entityTypes.addAll(util.getEntityTypes(emf));
+		entityTypes.addAll(this.mapNameToEntityType.values());
 		schema.setEntityTypes(entityTypes);
 		
 		
@@ -347,12 +373,17 @@ public class DemoEdmProvider extends CsdlAbstractEdmProvider {
 	@Override
 	public CsdlEntityContainer getEntityContainer() {
 
+		
 		// create EntitySets
 		List<CsdlEntitySet> entitySets = new ArrayList<CsdlEntitySet>();
 		entitySets.add(getEntitySet(CONTAINER, ES_PRODUCTS_NAME));
 		entitySets.add(getEntitySet(CONTAINER, ES_CATEGORIES_NAME));
 		entitySets.add(getEntitySet(CONTAINER, ES_ADVERTISEMENTS_NAME));
 
+		
+		entitySets.addAll(this.mapNameToEntitySet.values());
+
+		
 		// Create function imports
 		List<CsdlFunctionImport> functionImports = new ArrayList<CsdlFunctionImport>();
 		functionImports.add(getFunctionImport(CONTAINER, FUNCTION_COUNT_CATEGORIES));

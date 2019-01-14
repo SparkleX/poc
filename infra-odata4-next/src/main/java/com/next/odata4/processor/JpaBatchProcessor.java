@@ -38,16 +38,11 @@ import org.apache.olingo.server.api.deserializer.batch.BatchRequestPart;
 import org.apache.olingo.server.api.deserializer.batch.ODataResponsePart;
 import org.apache.olingo.server.api.processor.BatchProcessor;
 
-import myservice.mynamespace.data.Storage;
 
-public class DemoBatchProcessor implements BatchProcessor {
+public class JpaBatchProcessor implements BatchProcessor {
 
   private OData odata;
-  private Storage storage;
 
-  public DemoBatchProcessor(final Storage storage) {
-    this.storage = storage;
-  }
 
   @Override
   public void init(final OData odata, final ServiceMetadata serviceMetadata) {
@@ -110,7 +105,7 @@ public class DemoBatchProcessor implements BatchProcessor {
     final List<ODataResponse> responses = new ArrayList<ODataResponse>();
     
     try {
-      storage.beginTransaction();
+     // storage.beginTransaction();
       
       for(final ODataRequest request : requests) {
         // Actual request dispatching to the other processor interfaces.
@@ -124,7 +119,7 @@ public class DemoBatchProcessor implements BatchProcessor {
           responses.add(response);
         } else {
           // Something went wrong. Undo all previous requests in this Change Set
-          storage.rollbackTranscation();
+         // storage.rollbackTranscation();
           
           /*
            * In addition the response must be provided as follows:
@@ -146,17 +141,17 @@ public class DemoBatchProcessor implements BatchProcessor {
       }
       
       // Everything went well, so commit the changes.
-      storage.commitTransaction();
+      //storage.commitTransaction();
       return new ODataResponsePart(responses, true);
       
     } catch(ODataApplicationException e) {
       // See below
-      storage.rollbackTranscation();
+      //storage.rollbackTranscation();
       throw e;
     } catch(ODataLibraryException e) {
       // The request is malformed or the processor implementation is not correct.
       // Throwing an exception will stop the whole batch request not only the change set!
-      storage.rollbackTranscation();
+      //storage.rollbackTranscation();
       throw e;
     }
   }

@@ -1,11 +1,9 @@
 package com.next.odata4.jpa.utils;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Member;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -16,10 +14,10 @@ import javax.persistence.metamodel.SingularAttribute;
 
 import org.apache.olingo.commons.api.edm.EdmPrimitiveTypeKind;
 import org.apache.olingo.commons.api.edm.provider.CsdlEntityType;
-import org.apache.olingo.commons.api.edm.provider.CsdlNavigationProperty;
 import org.apache.olingo.commons.api.edm.provider.CsdlProperty;
 import org.apache.olingo.commons.api.edm.provider.CsdlPropertyRef;
 
+import com.next.odata4.annotation.ODataEntityType;
 import com.next.odata4.annotation.ODataProperty;
 import com.next.odata4.annotation.ODataTransient;
 
@@ -62,7 +60,8 @@ public class EntityTypeUtil
 	public <X> CsdlEntityType getEntityType(EntityType<X> entityType)
 	{
 		CsdlEntityType csdlEntityType = new CsdlEntityType();
-		csdlEntityType.setName(entityType.getName());
+		String name = entityType.getJavaType().getAnnotation(ODataEntityType.class).name();
+		csdlEntityType.setName(name);
 		List<CsdlProperty> properties = new ArrayList<>();
 		for(Attribute<?, ?> attr: entityType.getAttributes())
 		{

@@ -6,12 +6,16 @@ import javax.persistence.Table;
 import javax.persistence.Id;
 import com.next.odata4.annotation.ODataProperty;
 import com.next.odata4.annotation.ODataTransient;
+import com.next.odata4.annotation.ODataEntitySets;
+import com.next.odata4.annotation.ODataEntityType;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @SuppressWarnings("all")
 @Entity
 @Table(name="ORDR")
+@ODataEntityType(name="Document")
+@ODataEntitySets(name="SalesOrders",type="Document")
 public class BmoORDR
 {
 	@Id

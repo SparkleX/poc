@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
 <table xmlns="urn:next:table">
 	<name>ORDR</name>
-	<entityName>SalesOrder</entityName>
+	<odataEntitySets>
+		<name>SalesOrders</name>
+		<type>Document</type>
+	</odataEntitySets>
+	<odataEntityType>Document</odataEntityType>
 	<column>
 		<name>Id</name>
 		<type>int</type>
