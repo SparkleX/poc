@@ -39,7 +39,7 @@ public class BmoORDR
 	public BigDecimal getDocTotal(){return DocTotal;}
 	public void setDocTotal(BigDecimal val){DocTotal=val;}
 	BigDecimal DocTotal;
-    @Column
+    @Column(precision=10)
 	@ODataProperty(alias="CreateDate") 
 	public Date getCreateDate(){return CreateDate;}
 	public void setCreateDate(Date val){CreateDate=val;}

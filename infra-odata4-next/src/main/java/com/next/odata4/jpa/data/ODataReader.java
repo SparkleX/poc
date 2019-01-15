@@ -1,5 +1,8 @@
 package com.next.odata4.jpa.data;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 import javax.persistence.EntityManager;
@@ -17,7 +20,7 @@ public class ODataReader
 {
 	JpaDataReader jpaReader = new JpaDataReader();
 	DataWriter dataWriter = new DataWriter();
-	public Entity read(EntityManagerFactory emf, EntityManager em, Class<?> clazz, String key) throws ODataApplicationException 
+	public Entity read(EntityManagerFactory emf, EntityManager em, Class<?> clazz, String key) 
 	{
 		ManagedType<?> managedType = emf.getMetamodel().managedType(clazz);
 		EntityType<?> entityType = (EntityType<?>) managedType;
@@ -34,5 +37,16 @@ public class ODataReader
 		return rt;
 	}
 	
-
+	public <T> Collection<Entity> readAll(EntityManagerFactory emf, EntityManager em, Class<T> clazz) 
+	{
+		Collection<Entity> rt = new ArrayList<>();
+		
+		List<T> list = jpaReader.readAll(em, clazz);
+		for(T obj:list)
+		{
+			Entity entity = dataWriter.write(obj);
+			rt.add(entity);
+		}
+		return rt;
+	}
 }

@@ -1,31 +1,12 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements. See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership. The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
 package com.next.odata4.processor;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 import org.apache.olingo.commons.api.data.ContextURL;
 import org.apache.olingo.commons.api.data.Entity;
@@ -34,8 +15,6 @@ import org.apache.olingo.commons.api.data.Property;
 import org.apache.olingo.commons.api.data.ValueType;
 import org.apache.olingo.commons.api.edm.EdmEntitySet;
 import org.apache.olingo.commons.api.edm.EdmEntityType;
-import org.apache.olingo.commons.api.edm.EdmNavigationProperty;
-import org.apache.olingo.commons.api.edm.EdmProperty;
 import org.apache.olingo.commons.api.format.ContentType;
 import org.apache.olingo.commons.api.http.HttpHeader;
 import org.apache.olingo.commons.api.http.HttpStatusCode;
@@ -50,37 +29,27 @@ import org.apache.olingo.server.api.serializer.ODataSerializer;
 import org.apache.olingo.server.api.serializer.SerializerException;
 import org.apache.olingo.server.api.serializer.SerializerResult;
 import org.apache.olingo.server.api.uri.UriInfo;
-import org.apache.olingo.server.api.uri.UriInfoResource;
-import org.apache.olingo.server.api.uri.UriParameter;
 import org.apache.olingo.server.api.uri.UriResource;
 import org.apache.olingo.server.api.uri.UriResourceEntitySet;
-import org.apache.olingo.server.api.uri.UriResourceFunction;
-import org.apache.olingo.server.api.uri.UriResourceNavigation;
-import org.apache.olingo.server.api.uri.UriResourcePrimitiveProperty;
-import org.apache.olingo.server.api.uri.queryoption.CountOption;
-import org.apache.olingo.server.api.uri.queryoption.ExpandItem;
-import org.apache.olingo.server.api.uri.queryoption.ExpandOption;
-import org.apache.olingo.server.api.uri.queryoption.FilterOption;
-import org.apache.olingo.server.api.uri.queryoption.OrderByItem;
-import org.apache.olingo.server.api.uri.queryoption.OrderByOption;
 import org.apache.olingo.server.api.uri.queryoption.SelectOption;
-import org.apache.olingo.server.api.uri.queryoption.SkipOption;
-import org.apache.olingo.server.api.uri.queryoption.TopOption;
-import org.apache.olingo.server.api.uri.queryoption.expression.Expression;
-import org.apache.olingo.server.api.uri.queryoption.expression.ExpressionVisitException;
-import org.apache.olingo.server.api.uri.queryoption.expression.Member;
 
+import com.next.odata4.jpa.data.ODataReader;
 import com.next.odata4.jpa.model.ODataMetadata;
 
-public class JpaEntityCollectionProcessor implements EntityCollectionProcessor {
+public class EntityCollectionProcessorImpl implements EntityCollectionProcessor {
 
 	
 	private OData odata;
 	private ServiceMetadata serviceMetadata;
-//	private Storage storage;
+	private ODataMetadata odataMetadata;
+	private EntityManagerFactory emf;
+	private EntityManager em;
 
-	public JpaEntityCollectionProcessor(ODataMetadata odataMetadata) {
-//		this.storage = storage;
+	public EntityCollectionProcessorImpl(ODataMetadata odataMetadata, EntityManagerFactory emf, EntityManager em) 
+	{
+		this.odataMetadata = odataMetadata;
+		this.emf = emf;
+		this.em = em;
 	}
 
 	public void init(OData odata, ServiceMetadata serviceMetadata) {
@@ -98,16 +67,14 @@ public class JpaEntityCollectionProcessor implements EntityCollectionProcessor {
 
 		UriResourceEntitySet uriResourceEntitySet = (UriResourceEntitySet) uriResource;
 		EdmEntitySet edmEntitySet = uriResourceEntitySet.getEntitySet();
-			
 		EdmEntityType edmEntityType = edmEntitySet.getEntityType();
 		
-		EntityCollection retEntitySet = new EntityCollection();
-		Collection<Entity> entityList = new ArrayList<>();
-		Entity entity = new Entity();
-		entity.addProperty(new Property(null, "Id", ValueType.PRIMITIVE, 1));
-		entityList.add(entity );
-		retEntitySet.getEntities().addAll(entityList );
+		Class<?> javaType = odataMetadata.getEntitySet(edmEntitySet.getName()).getJavaType();
 		
+		EntityCollection retEntitySet = new EntityCollection();
+	    ODataReader oDataReader = new ODataReader();
+	    Collection<Entity> entityList = oDataReader.readAll(emf, em, javaType);
+		retEntitySet.getEntities().addAll(entityList );
 		
 		final ContextURL contextUrl = ContextURL.with().asCollection().type(edmEntityType).build();
 		SelectOption selectOption = uriInfo.getSelectOption();

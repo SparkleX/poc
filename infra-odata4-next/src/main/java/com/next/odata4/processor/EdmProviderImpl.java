@@ -50,7 +50,7 @@ import com.next.odata4.jpa.model.ODataMetadata;
 import com.next.odata4.jpa.utils.EntitySetsCreator;
 import com.next.odata4.jpa.utils.EntityTypeUtil;
 
-public class JpaEdmProvider extends CsdlAbstractEdmProvider {
+public class EdmProviderImpl extends CsdlAbstractEdmProvider {
 
 
 
@@ -94,7 +94,7 @@ public class JpaEdmProvider extends CsdlAbstractEdmProvider {
 	private EntityManagerFactory emf;
 	private ODataMetadata odataMetadata;
 
-	public JpaEdmProvider(ODataMetadata odataMetadata, EntityManagerFactory emf) 
+	public EdmProviderImpl(ODataMetadata odataMetadata, EntityManagerFactory emf) 
 	{
 		this.emf = emf;
 		this.odataMetadata =  odataMetadata;

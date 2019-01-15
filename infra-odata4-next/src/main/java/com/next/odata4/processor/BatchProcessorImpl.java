@@ -75,10 +75,10 @@ public class BatchProcessorImpl implements BatchProcessor {
     final InputStream responseContent = odata.createFixedFormatSerializer().batchResponse(responseParts, boundary);
     
     // 6. Create a new boundary for the response
-    final String responseBoundary = "batch_" + UUID.randomUUID().toString();
+    //final String responseBoundary = "batch_" + UUID.randomUUID().toString();
 
     // 7. Setup response
-    response.setHeader(HttpHeader.CONTENT_TYPE, ContentType.MULTIPART_MIXED + ";boundary=" + responseBoundary);
+    response.setHeader(HttpHeader.CONTENT_TYPE, ContentType.MULTIPART_MIXED + ";boundary=" + boundary);
     response.setContent(responseContent);
     response.setStatusCode(HttpStatusCode.ACCEPTED.getStatusCode());
   }

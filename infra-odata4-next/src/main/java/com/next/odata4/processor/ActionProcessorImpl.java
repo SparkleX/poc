@@ -67,7 +67,7 @@ public class ActionProcessorImpl implements ActionVoidProcessor {
     final ODataDeserializer deserializer = odata.createDeserializer(requestFormat);
     final Map<String, Parameter> actionParameter = deserializer.actionParameters(request.getBody(), edmAction)
         .getActionParameters();
-    final Parameter parameterAmount = actionParameter.get(JpaEdmProvider.PARAMETER_AMOUNT);
+    final Parameter parameterAmount = actionParameter.get(EdmProviderImpl.PARAMETER_AMOUNT);
     
     // The parameter amount is nullable
     if(parameterAmount.isNull()) {

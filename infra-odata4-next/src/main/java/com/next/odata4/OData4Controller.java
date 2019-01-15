@@ -24,8 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.next.odata4.jpa.model.ODataMetadata;
 import com.next.odata4.processor.DebugProcessorImpl;
 import com.next.odata4.processor.BatchProcessorImpl;
-import com.next.odata4.processor.JpaEdmProvider;
-import com.next.odata4.processor.JpaEntityCollectionProcessor;
+import com.next.odata4.processor.EdmProviderImpl;
+import com.next.odata4.processor.EntityCollectionProcessorImpl;
 import com.next.odata4.processor.EntityProcessorImpl;
 
 import gen.table.BmoORDR;
@@ -53,13 +53,13 @@ public class OData4Controller extends HttpServlet {
 			ManagedType<BmoORDR> m = emf.getMetamodel().managedType(BmoORDR.class);
 			
 			OData odata = OData.newInstance();
-			ServiceMetadata edm = odata.createServiceMetadata(new JpaEdmProvider(odataMetadata, emf),
+			ServiceMetadata edm = odata.createServiceMetadata(new EdmProviderImpl(odataMetadata, emf),
 					new ArrayList<EdmxReference>());
 			EntityManager em = emf.createEntityManager();
 			handler = odata.createHandler(edm);
 			handler.register(new DebugProcessorImpl());
 			handler.register(new BatchProcessorImpl());
-			handler.register(new JpaEntityCollectionProcessor(odataMetadata));
+			handler.register(new EntityCollectionProcessorImpl(odataMetadata, emf, em));
 			handler.register(new EntityProcessorImpl(odataMetadata, emf, em));
 			handler.process(req, resp);
 			em.close();
