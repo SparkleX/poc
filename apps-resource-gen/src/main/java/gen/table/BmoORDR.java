@@ -21,27 +21,27 @@ public class BmoORDR
 	@Id
     @Column
 	@ODataProperty(alias="Id") 
-    Integer Id;
 	public Integer getId(){return Id;}
 	public void setId(Integer val){Id=val;}
+	Integer Id;
     @Column
 	@ODataProperty(alias="BusinessPartnerId") 
-    Integer BpId;
 	public Integer getBpId(){return BpId;}
 	public void setBpId(Integer val){BpId=val;}
+	Integer BpId;
     @Column
 	@ODataProperty(alias="Remarks") 
-    String Remarks;
 	public String getRemarks(){return Remarks;}
 	public void setRemarks(String val){Remarks=val;}
+	String Remarks;
     @Column
 	@ODataProperty(alias="DocumentTotal") 
-    BigDecimal DocTotal;
 	public BigDecimal getDocTotal(){return DocTotal;}
 	public void setDocTotal(BigDecimal val){DocTotal=val;}
+	BigDecimal DocTotal;
     @Column
 	@ODataProperty(alias="CreateDate") 
-    Date CreateDate;
 	public Date getCreateDate(){return CreateDate;}
 	public void setCreateDate(Date val){CreateDate=val;}
+	Date CreateDate;
 }

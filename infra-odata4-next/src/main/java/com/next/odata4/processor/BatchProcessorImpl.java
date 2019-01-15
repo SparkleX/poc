@@ -39,7 +39,7 @@ import org.apache.olingo.server.api.deserializer.batch.ODataResponsePart;
 import org.apache.olingo.server.api.processor.BatchProcessor;
 
 
-public class JpaBatchProcessor implements BatchProcessor {
+public class BatchProcessorImpl implements BatchProcessor {
 
   private OData odata;
 

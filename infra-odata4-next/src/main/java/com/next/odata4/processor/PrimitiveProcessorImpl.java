@@ -22,8 +22,6 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
 
-import myservice.mynamespace.data.Storage;
-
 import org.apache.olingo.commons.api.data.ContextURL;
 import org.apache.olingo.commons.api.data.Entity;
 import org.apache.olingo.commons.api.data.Property;
@@ -50,14 +48,12 @@ import org.apache.olingo.server.api.uri.UriResource;
 import org.apache.olingo.server.api.uri.UriResourceEntitySet;
 import org.apache.olingo.server.api.uri.UriResourceProperty;
 
-public class DemoPrimitiveProcessor implements PrimitiveProcessor {
+public class PrimitiveProcessorImpl implements PrimitiveProcessor {
 
 	private OData odata;
-	private Storage storage;
   private ServiceMetadata serviceMetadata;
 
-	public DemoPrimitiveProcessor(Storage storage) {
-		this.storage = storage;
+	public PrimitiveProcessorImpl() {
 	}
 
 	public void init(OData odata, ServiceMetadata serviceMetadata) {
@@ -98,7 +94,7 @@ public class DemoPrimitiveProcessor implements PrimitiveProcessor {
 
 		// 2. retrieve data from backend
 		// 2.1. retrieve the entity data, for which the property has to be read
-		Entity entity = storage.readEntityData(edmEntitySet, keyPredicates);
+		Entity entity = null;//storage.readEntityData(edmEntitySet, keyPredicates);
 		if (entity == null) { // Bad request
 			throw new ODataApplicationException("Entity not found", HttpStatusCode.NOT_FOUND.getStatusCode(), Locale.ENGLISH);
 		}

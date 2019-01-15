@@ -36,15 +36,12 @@ import org.apache.olingo.server.api.processor.ActionVoidProcessor;
 import org.apache.olingo.server.api.uri.UriInfo;
 import org.apache.olingo.server.api.uri.UriResourceAction;
 
-import myservice.mynamespace.data.Storage;
 
-public class DemoActionProcessor implements ActionVoidProcessor {
+public class ActionProcessorImpl implements ActionVoidProcessor {
 
   private OData odata;
-  private Storage storage;
 
-  public DemoActionProcessor(final Storage storage) {
-    this.storage = storage;
+  public ActionProcessorImpl() {
   }
 
   @Override
@@ -74,10 +71,10 @@ public class DemoActionProcessor implements ActionVoidProcessor {
     
     // The parameter amount is nullable
     if(parameterAmount.isNull()) {
-      storage.resetDataSet();
+      //storage.resetDataSet();
     } else {
       final Integer amount = (Integer) parameterAmount.asPrimitive();
-      storage.resetDataSet(amount);
+      //storage.resetDataSet(amount);
     }
 
     response.setStatusCode(HttpStatusCode.NO_CONTENT.getStatusCode());

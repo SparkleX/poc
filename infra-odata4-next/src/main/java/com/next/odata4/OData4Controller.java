@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.metamodel.ManagedType;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,54 +21,48 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.next.odata4.processor.DebugProcessor;
-import com.next.odata4.processor.JpaBatchProcessor;
+import com.next.odata4.jpa.model.ODataMetadata;
+import com.next.odata4.processor.DebugProcessorImpl;
+import com.next.odata4.processor.BatchProcessorImpl;
 import com.next.odata4.processor.JpaEdmProvider;
 import com.next.odata4.processor.JpaEntityCollectionProcessor;
+import com.next.odata4.processor.EntityProcessorImpl;
 
-@WebServlet(urlPatterns="/odata4/*")
-public class OData4Controller extends HttpServlet
-{
+import gen.table.BmoORDR;
+
+@WebServlet(urlPatterns = "/odata4/*")
+public class OData4Controller extends HttpServlet {
 	private static final long serialVersionUID = -7591082520033406328L;
 	ODataHttpHandler handler;
-	@PostConstruct
-	public void postConstruct()
-	{
-		OData odata = OData.newInstance();
-		ServiceMetadata edm = odata.createServiceMetadata(new JpaEdmProvider(emf), new ArrayList<EdmxReference>());
-		handler = odata.createHandler(edm);
-		handler.register(new DebugProcessor());
-		handler.register(new JpaBatchProcessor());
-		handler.register(new JpaEntityCollectionProcessor());
 
+	ODataMetadata odataMetadata;
+
+	@PostConstruct
+	public void postConstruct() {
+		odataMetadata = new ODataMetadata(emf);
 	}
+
 	public static Logger logger = LoggerFactory.getLogger(OData4Controller.class);
 	@Autowired
 	EntityManagerFactory emf;
 
-	  @Override
-	  protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-	//	ServiceMetadata edm = odata.createServiceMetadata(new JpaEdmProvider(emf), new ArrayList<EdmxReference>());
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 		try {
-			/*HttpSession session = req.getSession(true);
-			Storage storage = (Storage) session.getAttribute(Storage.class.getName());
-			if (storage == null) {
-				storage = new Storage(odata, edm.getEdm());
-				session.setAttribute(Storage.class.getName(), storage);
-			}*/
-
-			// create odata handler and configure it with EdmProvider and Processor
-			//ODataHttpHandler handler = odata.createHandler(edm);
-			//handler.register(new DebugProcessor());
-		/*	handler.register(new DemoEntityCollectionProcessor(storage));
-			handler.register(new DemoEntityProcessor(storage));
-			handler.register(new DemoPrimitiveProcessor(storage));
-			handler.register(new DemoActionProcessor(storage));
-			*/
-
-			// let the handler do the work
+			ManagedType<BmoORDR> m = emf.getMetamodel().managedType(BmoORDR.class);
+			
+			OData odata = OData.newInstance();
+			ServiceMetadata edm = odata.createServiceMetadata(new JpaEdmProvider(odataMetadata, emf),
+					new ArrayList<EdmxReference>());
+			EntityManager em = emf.createEntityManager();
+			handler = odata.createHandler(edm);
+			handler.register(new DebugProcessorImpl());
+			handler.register(new BatchProcessorImpl());
+			handler.register(new JpaEntityCollectionProcessor(odataMetadata));
+			handler.register(new EntityProcessorImpl(odataMetadata, emf, em));
 			handler.process(req, resp);
+			em.close();
 		} catch (RuntimeException e) {
 			logger.error("Server Error occurred in ExampleServlet", e);
 			throw new ServletException(e);

@@ -10,16 +10,17 @@ import org.apache.olingo.commons.api.edm.FullQualifiedName;
 import org.apache.olingo.commons.api.edm.provider.CsdlEntitySet;
 
 import com.next.odata4.annotation.ODataEntitySets;
+import com.next.odata4.jpa.model.ODataEntitySet;
 
 public class EntitySetsCreator {
 
-	public List<CsdlEntitySet> getEntitySets(EntityManagerFactory emf) 
+	public List<ODataEntitySet> getEntitySets(EntityManagerFactory emf) 
 	{
-		List<CsdlEntitySet> rt = new ArrayList<CsdlEntitySet>();
+		List<ODataEntitySet> rt = new ArrayList<ODataEntitySet>();
 		for( EntityType<?> e:emf.getMetamodel().getEntities())
 		{
 			System.out.println(e.getJavaType());
-			CsdlEntitySet eSet = getEntitySet(e);
+			ODataEntitySet eSet = getEntitySet(e);
 			if(eSet==null)
 			{
 				continue;
@@ -30,17 +31,18 @@ public class EntitySetsCreator {
 		return rt;
 	}
 	public static final String NAMESPACE = "OData.Demo";
-	private CsdlEntitySet getEntitySet(EntityType<?> e) 
+	private ODataEntitySet getEntitySet(EntityType<?> e) 
 	{
 		Class<?> javaType = e.getJavaType();
 		ODataEntitySets aEntitySets = javaType.getAnnotation(ODataEntitySets.class);
 		if(aEntitySets==null) return null;
-		CsdlEntitySet entitySet = new CsdlEntitySet();
-		entitySet.setName(aEntitySets.name());
+		ODataEntitySet entitySet = new ODataEntitySet();
+		entitySet.getEntitySet().setName(aEntitySets.name());
 		
 		
 		FullQualifiedName type = new FullQualifiedName(NAMESPACE, aEntitySets.type());
-		entitySet.setType(type);
+		entitySet.getEntitySet().setType(type);
+		entitySet.setJavaType(javaType);
 		return entitySet;
 	}
 

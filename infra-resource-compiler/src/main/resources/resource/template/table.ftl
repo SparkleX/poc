@@ -30,8 +30,8 @@ public class Bmo${name}
     <#else> 
 	@ODataProperty(alias="${column.odataName}") 
 	</#if>
-    ${column.javaType} ${column.name};
 	public ${column.javaType} get${column.name}(){return ${column.name};}
 	public void set${column.name}(${column.javaType} val){${column.name}=val;}
+	${column.javaType} ${column.name};
     </#list>
 }

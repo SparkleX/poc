@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
 
+import com.next.odata4.annotation.ODataEntitySetScan;
+import com.next.odata4.annotation.ODataTypeScan;
 import com.next.odata4.jpa.utils.EntityTypeUtil;
 
 import gen.table.BmoORDR;
@@ -16,6 +18,8 @@ import gen.table.BmoORDR;
 @SpringBootApplication
 @ServletComponentScan
 @EntityScan(basePackageClasses = BmoORDR.class)
+@ODataEntitySetScan(basePackageClasses = BmoORDR.class)
+@ODataTypeScan(basePackageClasses = BmoORDR.class)
 public class AppOData4
 {
 

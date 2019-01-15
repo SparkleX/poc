@@ -20,17 +20,17 @@ public class BmoRDR1
 	@Id
     @Column
 	@ODataProperty(alias="Id") 
-    Integer Id;
 	public Integer getId(){return Id;}
 	public void setId(Integer val){Id=val;}
+	Integer Id;
     @Column
     @ODataTransient
-    Integer ParentId;
 	public Integer getParentId(){return ParentId;}
 	public void setParentId(Integer val){ParentId=val;}
+	Integer ParentId;
     @Column
 	@ODataProperty(alias="LineNumber") 
-    Integer LineId;
 	public Integer getLineId(){return LineId;}
 	public void setLineId(Integer val){LineId=val;}
+	Integer LineId;
 }
