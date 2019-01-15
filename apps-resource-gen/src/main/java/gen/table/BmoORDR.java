@@ -1,51 +1,47 @@
 package gen.table;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Id;
+import com.next.odata4.annotation.ODataProperty;
+import com.next.odata4.annotation.ODataTransient;
+import com.next.odata4.annotation.ODataEntitySets;
+import com.next.odata4.annotation.ODataEntityType;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 
 @SuppressWarnings("all")
 @Entity
 @Table(name="ORDR")
+@ODataEntityType(name="Document")
+@ODataEntitySets(name="SalesOrders",type="Document")
 public class BmoORDR
 {
+	@Id
     @Column
-    @Id
-    Integer Id;
+	@ODataProperty(alias="Id") 
 	public Integer getId(){return Id;}
 	public void setId(Integer val){Id=val;}
+	Integer Id;
     @Column
-    Integer BpId;
+	@ODataProperty(alias="BusinessPartnerId") 
 	public Integer getBpId(){return BpId;}
 	public void setBpId(Integer val){BpId=val;}
+	Integer BpId;
     @Column
-    String Remarks;
+	@ODataProperty(alias="Remarks") 
 	public String getRemarks(){return Remarks;}
 	public void setRemarks(String val){Remarks=val;}
+	String Remarks;
     @Column
-    BigDecimal DocTotal;
+	@ODataProperty(alias="DocumentTotal") 
 	public BigDecimal getDocTotal(){return DocTotal;}
 	public void setDocTotal(BigDecimal val){DocTotal=val;}
+	BigDecimal DocTotal;
     @Column(precision=10)
-    Date CreateDate;
+	@ODataProperty(alias="CreateDate") 
 	public Date getCreateDate(){return CreateDate;}
 	public void setCreateDate(Date val){CreateDate=val;}
-	
-	public Collection<BmoRDR1> getRDR1() {
-		return RDR1;
-	}
-	public void setRDR1(Collection<BmoRDR1> rDR1) {
-		RDR1 = rDR1;
-	}
-	@OneToMany(mappedBy="doc",fetch = FetchType.LAZY, cascade= CascadeType.ALL)
-	Collection<BmoRDR1> RDR1 = new ArrayList<>();
-
+	Date CreateDate;
 }
