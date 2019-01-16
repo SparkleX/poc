@@ -32,25 +32,27 @@ import org.apache.olingo.server.api.uri.UriInfo;
 import org.apache.olingo.server.api.uri.UriResource;
 import org.apache.olingo.server.api.uri.UriResourceEntitySet;
 import org.apache.olingo.server.api.uri.queryoption.SelectOption;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import com.next.odata4.jpa.data.ODataReader;
-import com.next.odata4.jpa.model.ODataMetadata;
+import com.next.odata4.jpa.model.MdOData;
 
+@Component
+@Scope("prototype")
 public class EntityCollectionProcessorImpl implements EntityCollectionProcessor {
 
 	
 	private OData odata;
 	private ServiceMetadata serviceMetadata;
-	private ODataMetadata odataMetadata;
+	@Autowired
+	private MdOData odataMetadata;
+	@Autowired
 	private EntityManagerFactory emf;
+	@Autowired
 	private EntityManager em;
 
-	public EntityCollectionProcessorImpl(ODataMetadata odataMetadata, EntityManagerFactory emf, EntityManager em) 
-	{
-		this.odataMetadata = odataMetadata;
-		this.emf = emf;
-		this.em = em;
-	}
 
 	public void init(OData odata, ServiceMetadata serviceMetadata) {
 		this.odata = odata;
@@ -69,7 +71,7 @@ public class EntityCollectionProcessorImpl implements EntityCollectionProcessor 
 		EdmEntitySet edmEntitySet = uriResourceEntitySet.getEntitySet();
 		EdmEntityType edmEntityType = edmEntitySet.getEntityType();
 		
-		Class<?> javaType = odataMetadata.getEntitySet(edmEntitySet.getName()).getJavaType();
+		Class<?> javaType = odataMetadata.getEntitySets().getByName(edmEntitySet.getName()).getJavaType();
 		
 		EntityCollection retEntitySet = new EntityCollection();
 	    ODataReader oDataReader = new ODataReader();

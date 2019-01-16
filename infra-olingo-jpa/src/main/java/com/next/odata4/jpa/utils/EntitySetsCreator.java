@@ -9,9 +9,9 @@ import javax.persistence.metamodel.EntityType;
 import org.apache.olingo.commons.api.edm.FullQualifiedName;
 import org.apache.olingo.commons.api.edm.provider.CsdlEntitySet;
 
-import com.next.odata4.annotation.ODataEntitySets;
-import com.next.odata4.jpa.model.ODataEntitySet;
-
+import com.next.odata4.annotation.ODataEntitySet;
+import com.next.odata4.jpa.model.MdEntitySet;
+/*
 public class EntitySetsCreator {
 
 	public List<ODataEntitySet> getEntitySets(EntityManagerFactory emf) 
@@ -46,4 +46,4 @@ public class EntitySetsCreator {
 		return entitySet;
 	}
 
-}
+}*/

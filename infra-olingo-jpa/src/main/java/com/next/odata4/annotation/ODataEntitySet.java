@@ -8,8 +8,7 @@ import java.lang.annotation.Target;
 
 @Target(TYPE) 
 @Retention(RUNTIME)
-public @interface ODataEntitySets 
+public @interface ODataEntitySet 
 {
 	String name();
-	String type();
 }

@@ -49,24 +49,35 @@ import org.apache.olingo.server.api.uri.UriResource;
 import org.apache.olingo.server.api.uri.UriResourceEntitySet;
 import org.apache.olingo.server.api.uri.queryoption.ExpandOption;
 import org.apache.olingo.server.api.uri.queryoption.SelectOption;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+import com.next.odata4.config.ODataCrudService;
 import com.next.odata4.jpa.data.ODataReader;
-import com.next.odata4.jpa.model.ODataMetadata;
+import com.next.odata4.jpa.model.MdEntitySet;
+import com.next.odata4.jpa.model.MdOData;
 
-public class EntityProcessorImpl implements EntityProcessor/* , MediaEntityProcessor */ {
+
+@Component
+@Scope("prototype")
+public class EntityProcessorImpl implements EntityProcessor/* , MediaEntityProcessor */ 
+{
 
 	private OData odata;
+	
 	private ServiceMetadata serviceMetadata;
+	
+	@Autowired
 	private EntityManager em;
-	private ODataMetadata odataMetadata;
+	@Autowired
+	private MdOData odataMetadata;
+	@Autowired
 	private EntityManagerFactory emf;
+	
+	
 
-	public EntityProcessorImpl(ODataMetadata odataMetadata, EntityManagerFactory emf, EntityManager em)
-	{
-		this.odataMetadata = odataMetadata;
-		this.emf = emf;
-		this.em = em;
-	}
 	public void init(OData odata, ServiceMetadata serviceMetadata) {
 		this.odata = odata;
 		this.serviceMetadata = serviceMetadata;
@@ -107,7 +118,7 @@ public class EntityProcessorImpl implements EntityProcessor/* , MediaEntityProce
 		    // Analyze the URI segments
 		    if (segmentCount == 1) { // no navigation
 		      responseEdmEntitySet = startEdmEntitySet; // since we have only one segment
-		      Class<?> javaType = odataMetadata.getEntitySet(startEdmEntitySet.getName()).getJavaType();
+		      Class<?> javaType = odataMetadata.getEntitySets().getByName(startEdmEntitySet.getName()).getJavaType();
 		      // 2. step: retrieve the data from backend
 		      List<UriParameter> keyPredicates = uriResourceEntitySet.getKeyPredicates();
 		      String key = keyPredicates.get(0).getText();
@@ -192,12 +203,28 @@ public class EntityProcessorImpl implements EntityProcessor/* , MediaEntityProce
 
 	}
 
+	@Autowired
+	ApplicationContext appContext;
+	
 	@Override
 	public void deleteEntity(ODataRequest request, ODataResponse response, UriInfo uriInfo)
 			throws ODataApplicationException, ODataLibraryException 
 	{
-		throw new RuntimeException("NOT IMPL");
-	}
+	    List<UriResource> resourcePaths = uriInfo.getUriResourceParts();
+	    UriResourceEntitySet uriResourceEntitySet = (UriResourceEntitySet) resourcePaths.get(0);
+	    EdmEntitySet edmEntitySet = uriResourceEntitySet.getEntitySet();
 
+	    List<UriParameter> keyPredicates = uriResourceEntitySet.getKeyPredicates();
+	    String entitySetName = edmEntitySet.getName();
+	    MdEntitySet odataEntitySet = odataMetadata.getEntitySets().getByName(entitySetName);
+	    Class<? extends ODataCrudService> serviceClass = odataEntitySet.getServiceClass();
+	    ODataCrudService  service = this.appContext.getBean(serviceClass);
+	    		
+	    Object oKey = odataEntitySet.createKey(keyPredicates);
+	    service.delete(oKey);
+	    
+	    // 3. configure the response object
+	    response.setStatusCode(HttpStatusCode.NO_CONTENT.getStatusCode());
+	}
 
 }

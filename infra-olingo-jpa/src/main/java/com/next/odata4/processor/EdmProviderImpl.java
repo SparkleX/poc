@@ -43,13 +43,14 @@ import org.apache.olingo.commons.api.edm.provider.CsdlProperty;
 import org.apache.olingo.commons.api.edm.provider.CsdlPropertyRef;
 import org.apache.olingo.commons.api.edm.provider.CsdlReturnType;
 import org.apache.olingo.commons.api.edm.provider.CsdlSchema;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-import com.next.odata4.jpa.model.EntitySetsMap;
-import com.next.odata4.jpa.model.EntityTypeMap;
-import com.next.odata4.jpa.model.ODataMetadata;
-import com.next.odata4.jpa.utils.EntitySetsCreator;
-import com.next.odata4.jpa.utils.EntityTypeUtil;
+import com.next.odata4.jpa.model.MdOData;
 
+@Component
+@Scope("prototype")
 public class EdmProviderImpl extends CsdlAbstractEdmProvider {
 
 
@@ -91,14 +92,13 @@ public class EdmProviderImpl extends CsdlAbstractEdmProvider {
 	// Function/Action Parameters
 	public static final String PARAMETER_AMOUNT = "Amount";
 
+	@Autowired
 	private EntityManagerFactory emf;
-	private ODataMetadata odataMetadata;
+	@Autowired
+	private MdOData odataMetadata;
 
-	public EdmProviderImpl(ODataMetadata odataMetadata, EntityManagerFactory emf) 
+	public EdmProviderImpl() 
 	{
-		this.emf = emf;
-		this.odataMetadata =  odataMetadata;
-		
 
 
 	}
@@ -307,7 +307,7 @@ public class EdmProviderImpl extends CsdlAbstractEdmProvider {
 		{
 			return entitySet;
 		}
-		return this.odataMetadata.getEntitySet(entitySetName).getEntitySet();
+		return this.odataMetadata.getEntitySets().getByName(entitySetName).getEntitySet();
 	}
 
 	@Override
@@ -371,7 +371,7 @@ public class EdmProviderImpl extends CsdlAbstractEdmProvider {
 		entitySets.add(getEntitySet(CONTAINER, ES_ADVERTISEMENTS_NAME));
 
 		
-		entitySets.addAll(this.odataMetadata.getEntitySets());
+		entitySets.addAll(this.odataMetadata.getEntitySets().getEntitySets());
 
 		
 		// Create function imports

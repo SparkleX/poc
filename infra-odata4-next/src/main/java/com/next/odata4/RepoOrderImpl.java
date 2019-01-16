@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @NoRepositoryBean

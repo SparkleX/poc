@@ -35,8 +35,11 @@ import org.apache.olingo.server.api.deserializer.ODataDeserializer;
 import org.apache.olingo.server.api.processor.ActionVoidProcessor;
 import org.apache.olingo.server.api.uri.UriInfo;
 import org.apache.olingo.server.api.uri.UriResourceAction;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-
+@Component
+@Scope("prototype")
 public class ActionProcessorImpl implements ActionVoidProcessor {
 
   private OData odata;

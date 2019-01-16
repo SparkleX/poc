@@ -37,8 +37,11 @@ import org.apache.olingo.server.api.deserializer.batch.BatchOptions;
 import org.apache.olingo.server.api.deserializer.batch.BatchRequestPart;
 import org.apache.olingo.server.api.deserializer.batch.ODataResponsePart;
 import org.apache.olingo.server.api.processor.BatchProcessor;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-
+@Component
+@Scope("prototype")
 public class BatchProcessorImpl implements BatchProcessor {
 
   private OData odata;
