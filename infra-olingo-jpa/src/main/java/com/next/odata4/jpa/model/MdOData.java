@@ -17,7 +17,7 @@ import com.next.odata4.jpa.utils.EntityTypeUtil;
 @Component
 public class MdOData implements InitializingBean 
 {
-	EntityTypeMap mapNameToEntityType = new EntityTypeMap();
+	
 	
 	@Autowired
 	EntityManagerFactory emf;
@@ -26,38 +26,31 @@ public class MdOData implements InitializingBean
 		return entitySets;
 	}
 
-
-
 	@Autowired
 	MdEntitySets entitySets;
 	
-	public CsdlEntityType getEntityType(String name) {
-		return mapNameToEntityType.get(name);
+	public MdEntityTypes getEntityTypes() {
+		return entityTypes;
 	}
 
 
-	public Collection<CsdlEntityType> getEntityTypes() 
-	{
-		return mapNameToEntityType.values();
+	public void setEntityTypes(MdEntityTypes entityTypes) {
+		this.entityTypes = entityTypes;
 	}
 
+	@Autowired
+	MdEntityTypes entityTypes;
 
-
+	
 	@Override
-	public void afterPropertiesSet() throws Exception {
-		/*EntitySetsCreator util = new EntitySetsCreator();
-		List<ODataEntitySet> sets = util.getEntitySets(emf);
-		for(ODataEntitySet o:sets)
-		{
-			mapNameToEntitySet.put(o.getEntitySet().getName(), o);
-		}*/
+	public void afterPropertiesSet() throws Exception 
+	{
 		
-		
-		EntityTypeUtil utilType = new EntityTypeUtil();
+		/*EntityTypeUtil utilType = new EntityTypeUtil();
 		for(CsdlEntityType entityType:utilType.getEntityTypes(emf))
 		{
 			this.mapNameToEntityType.put(entityType.getName(), entityType);
-		}
+		}*/
 		
 	}
 }

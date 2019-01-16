@@ -19,7 +19,7 @@ import org.apache.olingo.commons.api.edm.provider.CsdlPropertyRef;
 
 import com.next.odata4.annotation.ODataEntityType;
 import com.next.odata4.annotation.ODataProperty;
-import com.next.odata4.annotation.ODataTransient;
+import com.next.odata4.jpa.model.MdEntityType;
 
 public class EntityTypeUtil 
 {
@@ -27,13 +27,12 @@ public class EntityTypeUtil
 	public <X, Y> CsdlProperty getProperty(Attribute<X, Y> attr)
 	{
 		Member javaMember = attr.getJavaMember();
-		ODataTransient ignore = MemberUtil.getAnnotation(javaMember, ODataTransient.class);
-		if(ignore!=null){
+		ODataProperty ignore = MemberUtil.getAnnotation(javaMember, ODataProperty.class);
+		if(ignore==null){
 			return null;
 		}
-		ODataProperty odataProperty = MemberUtil.getAnnotation(javaMember, ODataProperty.class);
 		CsdlProperty csdlProperty = new CsdlProperty();
-		String name = odataProperty.alias();
+		String name = attr.getName();
 		csdlProperty.setName(name);
 		Class<Y> javaType = attr.getJavaType();
 		EdmPrimitiveTypeKind edmType = getEdmPrimitiveType(javaType);
@@ -89,13 +88,17 @@ public class EntityTypeUtil
 		
 		return csdlEntityType;
 	}
-	public List<CsdlEntityType> getEntityTypes(EntityManagerFactory emf)
+	public List<MdEntityType> getEntityTypes(EntityManagerFactory emf)
 	{
-		List<CsdlEntityType> rt = new ArrayList<CsdlEntityType>();
+		List<MdEntityType> rt = new ArrayList<MdEntityType>();
 		for( EntityType<?> e:emf.getMetamodel().getEntities())
 		{
 			System.out.println(e.getJavaType());
-			CsdlEntityType entityType = getEntityType(e);
+			CsdlEntityType edmEntityType = getEntityType(e);
+			
+			MdEntityType entityType = new MdEntityType();
+			entityType.setCsdlEntityType(edmEntityType);
+			entityType.setJavaClass(e.getJavaType());
 			rt.add(entityType);
 
 		}

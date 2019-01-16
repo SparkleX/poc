@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import com.next.odata4.annotation.ODataProperty;
-import com.next.odata4.annotation.ODataTransient;
-import com.next.odata4.annotation.ODataEntitySets;
 import com.next.odata4.annotation.ODataEntityType;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -15,9 +13,6 @@ import java.util.Date;
 @Entity
 @Table(name="${name}")
 @ODataEntityType(name="${odataEntityType}")
-<#if odataEntitySets??>
-@ODataEntitySets(name="${odataEntitySets.name}",type="${odataEntitySets.type}")
-</#if>
 public class Bmo${name}
 {
     <#list column as column>
@@ -26,9 +21,8 @@ public class Bmo${name}
 	</#if>
     @Column
     <#if column.odataName=="">
-    @ODataTransient
     <#else> 
-	@ODataProperty(alias="${column.odataName}") 
+	@ODataProperty
 	</#if>
 	public ${column.javaType} get${column.name}(){return ${column.name};}
 	public void set${column.name}(${column.javaType} val){${column.name}=val;}

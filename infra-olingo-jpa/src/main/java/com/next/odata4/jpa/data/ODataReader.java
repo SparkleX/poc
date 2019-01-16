@@ -19,7 +19,7 @@ import org.apache.olingo.server.api.ODataApplicationException;
 public class ODataReader 
 {
 	JpaDataReader jpaReader = new JpaDataReader();
-	DataWriter dataWriter = new DataWriter();
+	OlingoEntityUtil dataWriter = new OlingoEntityUtil();
 	public Entity read(EntityManagerFactory emf, EntityManager em, Class<?> clazz, String key) 
 	{
 		ManagedType<?> managedType = emf.getMetamodel().managedType(clazz);

@@ -1,7 +1,10 @@
 package com.next.odata4;
 
+import java.lang.reflect.InvocationTargetException;
+
 import javax.persistence.EntityManager;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,15 +22,25 @@ public class OrderService implements ODataCrudService<BmoORDR, Integer>
 	@Autowired
 	EntityManager em;
 	@Override
-	public void create(BmoORDR o)
+	public BmoORDR create(BmoORDR o)
 	{
 		em.persist(o);
+		
+		return o;
 	}
 	
 	@Override
 	public void update(Integer id, BmoORDR o)
 	{
-		em.persist(o);
+		try 
+		{
+			BmoORDR oOrgn = em.find(BmoORDR.class, id);
+			BeanUtils.copyProperties(oOrgn, o);
+			em.persist(oOrgn);
+		} catch (IllegalAccessException | InvocationTargetException e) 
+		{
+			throw new RuntimeException(e);
+		}		
 	}
 	
 	

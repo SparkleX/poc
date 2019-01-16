@@ -258,7 +258,7 @@ public class EdmProviderImpl extends CsdlAbstractEdmProvider {
 
 		if(entityType!=null) return entityType;
 		
-		return this.odataMetadata.getEntityType(entityTypeName.getName());
+		return this.odataMetadata.getEntityTypes().getByName(entityTypeName.getName()).getCsdlEntityType();
 
 	}
 
@@ -335,7 +335,7 @@ public class EdmProviderImpl extends CsdlAbstractEdmProvider {
 		entityTypes.add(getEntityType(ET_PRODUCT_FQN));
 		entityTypes.add(getEntityType(ET_CATEGORY_FQN));
 		entityTypes.add(getEntityType(ET_ADVERTISEMENT_FQN));
-		entityTypes.addAll(this.odataMetadata.getEntityTypes());
+		entityTypes.addAll(this.odataMetadata.getEntityTypes().getCollection());
 		schema.setEntityTypes(entityTypes);
 		
 		

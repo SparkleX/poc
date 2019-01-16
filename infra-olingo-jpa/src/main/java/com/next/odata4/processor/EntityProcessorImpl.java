@@ -18,6 +18,7 @@
  */
 package com.next.odata4.processor;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,6 +32,7 @@ import org.apache.olingo.commons.api.edm.EdmEntitySet;
 import org.apache.olingo.commons.api.edm.EdmEntityType;
 import org.apache.olingo.commons.api.format.ContentType;
 import org.apache.olingo.commons.api.http.HttpHeader;
+import org.apache.olingo.commons.api.http.HttpMethod;
 import org.apache.olingo.commons.api.http.HttpStatusCode;
 import org.apache.olingo.server.api.OData;
 import org.apache.olingo.server.api.ODataApplicationException;
@@ -38,6 +40,8 @@ import org.apache.olingo.server.api.ODataLibraryException;
 import org.apache.olingo.server.api.ODataRequest;
 import org.apache.olingo.server.api.ODataResponse;
 import org.apache.olingo.server.api.ServiceMetadata;
+import org.apache.olingo.server.api.deserializer.DeserializerResult;
+import org.apache.olingo.server.api.deserializer.ODataDeserializer;
 import org.apache.olingo.server.api.processor.EntityProcessor;
 import org.apache.olingo.server.api.serializer.EntitySerializerOptions;
 import org.apache.olingo.server.api.serializer.ODataSerializer;
@@ -56,7 +60,9 @@ import org.springframework.stereotype.Component;
 
 import com.next.odata4.config.ODataCrudService;
 import com.next.odata4.jpa.data.ODataReader;
+import com.next.odata4.jpa.data.OlingoEntityUtil;
 import com.next.odata4.jpa.model.MdEntitySet;
+import com.next.odata4.jpa.model.MdEntityType;
 import com.next.odata4.jpa.model.MdOData;
 
 
@@ -191,16 +197,77 @@ public class EntityProcessorImpl implements EntityProcessor/* , MediaEntityProce
 	
 	@Override
 	public void createEntity(ODataRequest request, ODataResponse response, UriInfo uriInfo, ContentType requestFormat,
-			ContentType responseFormat) throws ODataApplicationException, ODataLibraryException {
-		throw new RuntimeException("NOT IMPL");
+			ContentType responseFormat) throws ODataApplicationException, ODataLibraryException 
+	{
+	    List<UriResource> resourcePaths = uriInfo.getUriResourceParts();
+	    UriResourceEntitySet uriResourceEntitySet = (UriResourceEntitySet) resourcePaths.get(0);
+	    EdmEntitySet edmEntitySet = uriResourceEntitySet.getEntitySet();
+	    EdmEntityType edmEntityType = edmEntitySet.getEntityType();
+
+	    InputStream requestInputStream = request.getBody();
+	    ODataDeserializer deserializer = this.odata.createDeserializer(requestFormat);
+	    DeserializerResult result = deserializer.entity(requestInputStream, edmEntityType);
+	    Entity requestEntity = result.getEntity();
+	    
+	    
+
+
+		MdEntityType entityType = odataMetadata.getEntityTypes().getByName(edmEntityType.getName());
+		MdEntitySet odataEntitySet = odataMetadata.getEntitySets().getByName(edmEntitySet.getName());
+		Class<? extends ODataCrudService> serviceClass = odataEntitySet.getServiceClass();
+		ODataCrudService  service = this.appContext.getBean(serviceClass);
+				
+		Object data = OlingoEntityUtil.read(requestEntity, entityType.getJavaClass());
+		Object oNewObject = service.create(data);
+		Entity createdEntity = OlingoEntityUtil.write(oNewObject);
+
+
+	    ContextURL contextUrl = ContextURL.with().entitySet(edmEntitySet).build();
+	    EntitySerializerOptions options = EntitySerializerOptions.with().contextURL(contextUrl).build();
+	    ODataSerializer serializer = this.odata.createSerializer(responseFormat);
+	    SerializerResult serializedResponse = serializer.entity(serviceMetadata, edmEntityType, createdEntity, options);
+
+	    final String location = request.getRawBaseUri() + '/'
+	        + odata.createUriHelper().buildCanonicalURL(edmEntitySet, createdEntity);
+	    
+	    response.setHeader(HttpHeader.LOCATION, location);
+	    response.setContent(serializedResponse.getContent());
+	    response.setStatusCode(HttpStatusCode.CREATED.getStatusCode());
+	    response.setHeader(HttpHeader.CONTENT_TYPE, responseFormat.toContentTypeString());
 
 	}
 
 	@Override
 	public void updateEntity(ODataRequest request, ODataResponse response, UriInfo uriInfo, ContentType requestFormat,
 			ContentType responseFormat) throws ODataApplicationException, ODataLibraryException {
-		throw new RuntimeException("NOT IMPL");
+	    List<UriResource> resourcePaths = uriInfo.getUriResourceParts();
+	    UriResourceEntitySet uriResourceEntitySet = (UriResourceEntitySet) resourcePaths.get(0);
+	    EdmEntitySet edmEntitySet = uriResourceEntitySet.getEntitySet();
+	    EdmEntityType edmEntityType = edmEntitySet.getEntityType();
+	    InputStream requestInputStream = request.getBody();
+	    ODataDeserializer deserializer = this.odata.createDeserializer(requestFormat);
+	    DeserializerResult result = deserializer.entity(requestInputStream, edmEntityType);
+	    Entity requestEntity = result.getEntity();
+	    List<UriParameter> keyPredicates = uriResourceEntitySet.getKeyPredicates();
 
+	    
+	    HttpMethod httpMethod = request.getMethod();
+	    
+	    MdEntityType entityType = odataMetadata.getEntityTypes().getByName(edmEntityType.getName());
+	    MdEntitySet odataEntitySet = odataMetadata.getEntitySets().getByName(edmEntitySet.getName());
+	    Class<? extends ODataCrudService> serviceClass = odataEntitySet.getServiceClass();
+	    ODataCrudService  service = this.appContext.getBean(serviceClass);
+	    		
+	    Object oKey = odataEntitySet.createKey(keyPredicates);
+	    Object data = OlingoEntityUtil.read(requestEntity, entityType.getJavaClass());
+	    service.update(oKey, data);
+
+	    
+	    
+	    
+	    
+	    
+	    response.setStatusCode(HttpStatusCode.NO_CONTENT.getStatusCode());
 	}
 
 	@Autowired
