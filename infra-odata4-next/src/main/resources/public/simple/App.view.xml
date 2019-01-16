@@ -10,7 +10,9 @@
       <Label text="Document Total" />
       <Input id="id3" value="{docTotal}"  valueLiveUpdate="true"/>
       
+      <Button text="New" press="onNew" />
       <Button text="Create" press="onCreate" />
+      <Button text="Load" press="onLoad" />
       <Button text="Update" press="onUpdate" />
       <Button text="Delete" press="onDelete" />
     </content>

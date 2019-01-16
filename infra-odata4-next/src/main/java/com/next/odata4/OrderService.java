@@ -36,6 +36,7 @@ public class OrderService implements ODataCrudService<BmoORDR, Integer>
 		{
 			BmoORDR oOrgn = em.find(BmoORDR.class, id);
 			BeanUtils.copyProperties(oOrgn, o);
+			oOrgn.setId(id);
 			em.persist(oOrgn);
 		} catch (IllegalAccessException | InvocationTargetException e) 
 		{
