@@ -4,11 +4,15 @@
   <Panel headerText="Binding (Header Only)" class="sapUiResponsiveMargin" width="auto">
     <content>
       <Label text="Id"/>
-      <Input id="id1" value="{Id}" valueLiveUpdate="true"/>
-      <Label text="Item Code" />
-      <Input id="id2" value="{BusinessPartnerId}"  valueLiveUpdate="true"/>
+      <Input id="idId" value="{id}" valueLiveUpdate="true"/>
+      <Label text="Business Partner" />
+      <Input id="id2" value="{bpId}"  valueLiveUpdate="true"/>
+      <Label text="Document Total" />
+      <Input id="id3" value="{docTotal}"  valueLiveUpdate="true"/>
+      
+      <Button text="Create" press="onCreate" />
       <Button text="Update" press="onUpdate" />
-      <Button text="Delete" press="onDelete" /> 
+      <Button text="Delete" press="onDelete" />
     </content>
   </Panel>
 </mvc:View>

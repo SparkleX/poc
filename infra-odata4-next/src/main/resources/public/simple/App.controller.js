@@ -18,12 +18,21 @@ sap.ui.define([
      
 		onDelete: function (evt) 
 		{
-			var oModel = this.getView().getModel();
-			//oModel.remove("/Items(-1)");
-			oModel.resetChanges();
-			MessageToast.show(evt.getSource().getId() + " Pressed");
+			var oView = this.getView();
+			var id = oView.byId("idId").getValue();
+			var oModel = oView.getModel();
+			//oModel.remove("/SalesOrders("+id+")");
+			oView.getBindingContext().delete("$auto");
+			MessageToast.show("Deleted");
 		},
 		onUpdate: function (evt) 
+		{
+			var oView = this.getView();
+			var oModel = oView.getModel();
+			oModel.submitBatch("group1");
+			MessageToast.show("Updated");
+		},
+		onCreate: function (evt) 
 		{
 			
 			var oView = this.getView();

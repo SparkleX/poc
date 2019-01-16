@@ -1,6 +1,7 @@
 package com.next.odata4.config;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
@@ -11,6 +12,7 @@ import java.util.Map;
 
 import javax.servlet.AsyncContext;
 import javax.servlet.DispatcherType;
+import javax.servlet.ReadListener;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -26,16 +28,24 @@ import javax.servlet.http.HttpUpgradeHandler;
 import javax.servlet.http.Part;
 import javax.servlet.http.PushBuilder;
 
+import org.apache.commons.io.IOUtils;
+
 public class HttpServletRequestWapper implements HttpServletRequest
 {
 	HttpServletRequest delegate;
 	private String path;
-	
-	HttpServletRequestWapper(HttpServletRequest value, String path)
+	private byte[] body;
+	HttpServletRequestWapper(HttpServletRequest request, String path) throws IOException
 	{
-		this.delegate = value;
+		this.delegate = request;
 		this.path = path;
+        body = IOUtils.toByteArray(request.getInputStream());
+        System.out.println(body.length);
 	}
+	public ServletInputStream getInputStream() throws IOException {
+		return delegate.getInputStream();
+
+	}	
 	public String getServletPath() {
 		return path;
 	}
@@ -75,9 +85,7 @@ public class HttpServletRequestWapper implements HttpServletRequest
 	public String getContentType() {
 		return delegate.getContentType();
 	}
-	public ServletInputStream getInputStream() throws IOException {
-		return delegate.getInputStream();
-	}
+
 	public Enumeration<String> getHeaderNames() {
 		return delegate.getHeaderNames();
 	}

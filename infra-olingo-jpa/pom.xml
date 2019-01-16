@@ -32,6 +32,11 @@
 			<groupId>org.apache.olingo</groupId>
 			<artifactId>odata-commons-core</artifactId>
 		</dependency>
+<dependency>
+    <groupId>commons-io</groupId>
+    <artifactId>commons-io</artifactId>
+</dependency>
+		
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>

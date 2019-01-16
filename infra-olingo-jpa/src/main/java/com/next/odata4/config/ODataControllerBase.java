@@ -1,5 +1,6 @@
 package com.next.odata4.config;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.persistence.EntityManager;
@@ -42,7 +43,7 @@ public class ODataControllerBase
 
 	
 	
-	protected void service(HttpServletRequest req, HttpServletResponse resp, String path)
+	protected void service(HttpServletRequest req, HttpServletResponse resp, String path) throws IOException
 	{
 		OData odata = OData.newInstance();
 		ServiceMetadata edm = odata.createServiceMetadata(appContext.getBean(EdmProviderImpl.class),
