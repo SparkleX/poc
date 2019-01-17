@@ -6,7 +6,7 @@
 			<Label text="Id" />
 			<Input id="idId" value="{id}" valueLiveUpdate="true" />
 			<Label text="Business Partner" />
-			<Input id="id2" value="{bpId}" valueLiveUpdate="true" />
+			<Input id="idBp" value="{bpId}" valueLiveUpdate="true" />
 			<Label text="Document Total" />
 			<Input id="id3" value="{docTotal}" valueLiveUpdate="true" />
 
@@ -32,6 +32,7 @@
 				<Button text="Save" type="Accept" press="onSave" />
 				<Button text="Delete" type="Reject" press="onDelete" />
 				<Button id="idAction" text="Action" press="onAction" />
+				<Button text="Test" press="onTest" />
 			</Toolbar>
 		</footer>		
 	</Page>

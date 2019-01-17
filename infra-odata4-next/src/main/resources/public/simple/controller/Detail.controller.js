@@ -22,7 +22,8 @@ sap.ui.define([
 				this.addMode = true;
 				return;
 			}
-			this.getView().bindElement("/"+id);
+			var oElement = this.getView().bindElement("/"+id);
+			alert('a');
 		},
 		onSave: function () {
 			if(this.addMode)
@@ -34,12 +35,7 @@ sap.ui.define([
 				this.onUpdate();
 			}
 		},
-		//Load new entry before update
-		onLoad: function () {
-			var oView = this.getView();
-			var id = oView.byId("idId").getValue();
-			oView.bindElement("/ORDRCollection("+id+")");
-		},		
+	
 		onUpdate: function (evt) 
 		{
 			var oView = this.getView();
@@ -47,7 +43,7 @@ sap.ui.define([
 			oModel.submitBatch("group1");
 			MessageToast.show("Updated");
 		},
-		//New Blank before create
+		// New Blank before create
 		onNew: function (evt) 
 		{
 			var oView = this.getView();
@@ -55,7 +51,7 @@ sap.ui.define([
 			var listBinding = oModel.bindList("/ORDRCollection");
 			var oCreate = listBinding.create({bpId:3});
 			oView.setBindingContext(oCreate)
-			//var oContext = oCreate.created();
+			// var oContext = oCreate.created();
 		},
 		onCreate: function (evt) 
 		{
@@ -77,19 +73,15 @@ sap.ui.define([
 			var oModel = oView.getModel();
 			oItem.invalidate()
 			oModel.refresh("$auto");
-			/*var oBinding = oModel.bindContext("/function(...)");//oModel.createBindingContext("/function");
-			var oMetaModel = oBinding.getModel();
-    		//oContext.setParameter("Comment", sComment);
-    		oBinding.execute()
-    		.then(function(){
-    			var oBind2 = oBinding;
-    			var oModel2 = oModel;
-    			oView.bindElement("/ORDRCollection(-8)");
-			},function () {
-				alert('a');
-			}).catch(function(e){
-				alert(e);
- 			});*/
+			/*
+			 * var oBinding =
+			 * oModel.bindContext("/function(...)");//oModel.createBindingContext("/function");
+			 * var oMetaModel = oBinding.getModel();
+			 * //oContext.setParameter("Comment", sComment); oBinding.execute()
+			 * .then(function(){ var oBind2 = oBinding; var oModel2 = oModel;
+			 * oView.bindElement("/ORDRCollection(-8)"); },function () {
+			 * alert('a'); }).catch(function(e){ alert(e); });
+			 */
 		},
 		onNavBack: function () {
 			var oHistory = History.getInstance();
@@ -101,6 +93,19 @@ sap.ui.define([
 				var oRouter = UIComponent.getRouterFor(this);
 				oRouter.navTo("list", {}, true);
 			}
+		},
+		onTest: function() {
+			var oView = this.getView();
+			var oModel = oView.getModel();
+			var oContext = oView.getBindingContext()
+			var oBind = oContext.getBinding()
+			var oObject = oContext.getObject()
+			var oBp = oView.byId("idBp");
+			//oBp.getBinding("value").setValue(-2);
+			//oBp.setValue(-3);
+			var oBind2 = oModel.bindContext("/ORDRCollection(-9)");
+			alert('a');
+			
 		}
 	});
 
