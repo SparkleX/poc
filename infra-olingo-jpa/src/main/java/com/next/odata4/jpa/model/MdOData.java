@@ -19,6 +19,7 @@ public class MdOData implements InitializingBean
 {
 	
 	
+	public static final String NAMESPACE = "OData.Demo";
 	@Autowired
 	EntityManagerFactory emf;
 	
@@ -40,7 +41,18 @@ public class MdOData implements InitializingBean
 
 	@Autowired
 	MdEntityTypes entityTypes;
+	
+	public MdFunctions getFunctions() {
+		return functions;
+	}
 
+
+	public void setFunctions(MdFunctions functions) {
+		this.functions = functions;
+	}
+
+	@Autowired
+	MdFunctions functions;
 	
 	@Override
 	public void afterPropertiesSet() throws Exception 

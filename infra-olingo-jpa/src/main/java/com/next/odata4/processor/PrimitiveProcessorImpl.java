@@ -21,12 +21,15 @@ package com.next.odata4.processor;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import org.apache.olingo.commons.api.data.ContextURL;
 import org.apache.olingo.commons.api.data.Entity;
 import org.apache.olingo.commons.api.data.Property;
+import org.apache.olingo.commons.api.data.ValueType;
 import org.apache.olingo.commons.api.edm.EdmEntitySet;
 import org.apache.olingo.commons.api.edm.EdmPrimitiveType;
+import org.apache.olingo.commons.api.edm.EdmPrimitiveTypeKind;
 import org.apache.olingo.commons.api.edm.EdmProperty;
 import org.apache.olingo.commons.api.format.ContentType;
 import org.apache.olingo.commons.api.http.HttpHeader;
@@ -46,16 +49,19 @@ import org.apache.olingo.server.api.uri.UriInfo;
 import org.apache.olingo.server.api.uri.UriParameter;
 import org.apache.olingo.server.api.uri.UriResource;
 import org.apache.olingo.server.api.uri.UriResourceEntitySet;
+import org.apache.olingo.server.api.uri.UriResourceFunction;
 import org.apache.olingo.server.api.uri.UriResourceProperty;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component
+@Scope("prototype")
 public class PrimitiveProcessorImpl implements PrimitiveProcessor {
 
-	private OData odata;
+private OData odata;
   private ServiceMetadata serviceMetadata;
 
-	public PrimitiveProcessorImpl() {
-	}
-
+  Random rand = new Random();
 	public void init(OData odata, ServiceMetadata serviceMetadata) {
 		this.odata = odata;
     this.serviceMetadata = serviceMetadata;
@@ -77,6 +83,36 @@ public class PrimitiveProcessorImpl implements PrimitiveProcessor {
 		// 1. Retrieve info from URI
 		// 1.1. retrieve the info about the requested entity set
 		List<UriResource> resourceParts = uriInfo.getUriResourceParts();
+		
+		UriResource firstPart = resourceParts.get(0);
+		
+		if(firstPart instanceof UriResourceFunction)
+		{
+			UriResourceFunction function = (UriResourceFunction)firstPart;
+			// 3.1. configure the serializer
+			ODataSerializer serializer = odata.createSerializer(responseFormat);
+
+			ContextURL contextUrl = ContextURL.with().build();
+			PrimitiveSerializerOptions options = PrimitiveSerializerOptions.with().contextURL(contextUrl).build();
+			
+			
+			int n = rand.nextInt(50) + 1;
+			
+			Property property = new Property();
+			property.setValue(ValueType.PRIMITIVE, n);
+			
+			EdmPrimitiveType edmPropertyType = (EdmPrimitiveType) function.getFunction().getReturnType().getType();
+			// 3.2. serialize
+			SerializerResult serializerResult = serializer.primitive(serviceMetadata, edmPropertyType, property, options);
+			InputStream propertyStream = serializerResult.getContent();
+
+			//4. configure the response object
+			response.setContent(propertyStream);
+			response.setStatusCode(HttpStatusCode.OK.getStatusCode());
+			response.setHeader(HttpHeader.CONTENT_TYPE, responseFormat.toContentTypeString());
+			return;
+		}
+		
 		// Note: only in our example we can rely that the first segment is the EntitySet
 		UriResourceEntitySet uriEntityset = (UriResourceEntitySet) resourceParts.get(0);
 		EdmEntitySet edmEntitySet = uriEntityset.getEntitySet();

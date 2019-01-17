@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.next.odata4.annotation.ODataEntitySet;
+import com.next.odata4.annotation.ODataFunction;
 import com.next.odata4.config.ODataCrudService;
 
 import gen.table.BmoORDR;
@@ -21,6 +22,15 @@ public class SalesOrderService implements ODataCrudService<BmoORDR, Integer>
 {
 	@Autowired
 	EntityManager em;
+	
+	
+	@ODataFunction
+	public int orderCount()
+	{
+		return 100;
+	}
+	
+	
 	@Override
 	public BmoORDR create(BmoORDR o)
 	{

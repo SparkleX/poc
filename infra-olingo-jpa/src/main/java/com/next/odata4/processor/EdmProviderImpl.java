@@ -47,6 +47,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.next.odata4.jpa.model.MdEntitySet;
+import com.next.odata4.jpa.model.MdFunction;
 import com.next.odata4.jpa.model.MdOData;
 
 @Component
@@ -166,8 +168,11 @@ public class EdmProviderImpl extends CsdlAbstractEdmProvider {
 
 			return functions;
 		}
-
-		return null;
+		CsdlFunction func = this.odataMetadata.getFunctions().get(functionName.getName()).getOlingoFunction();
+		ArrayList<CsdlFunction> rt = new ArrayList<CsdlFunction>();
+		rt.add(func);
+		return rt;
+		//return null;
 	}
 
 	@Override
@@ -179,7 +184,9 @@ public class EdmProviderImpl extends CsdlAbstractEdmProvider {
 			}
 		}
 
-		return null;
+		MdFunction mdFunction = this.odataMetadata.getFunctions().get(functionImportName);
+		return mdFunction.getOlingoFunctionImport();
+		//return null;
 	}
 
 	@Override
@@ -307,7 +314,12 @@ public class EdmProviderImpl extends CsdlAbstractEdmProvider {
 		{
 			return entitySet;
 		}
-		return this.odataMetadata.getEntitySets().getByName(entitySetName).getEntitySet();
+		MdEntitySet mdEntitySet = this.odataMetadata.getEntitySets().getByName(entitySetName);
+		if(mdEntitySet!=null)
+		{
+			return mdEntitySet.getEntitySet();
+		}
+		return null;
 	}
 
 	@Override
@@ -348,6 +360,7 @@ public class EdmProviderImpl extends CsdlAbstractEdmProvider {
 		// add functions
 		List<CsdlFunction> functions = new ArrayList<CsdlFunction>();
 		functions.addAll(getFunctions(FUNCTION_COUNT_CATEGORIES_FQN));
+		functions.addAll(this.odataMetadata.getFunctions().getOlingoList());
 		schema.setFunctions(functions);
 
 		// add EntityContainer
@@ -377,7 +390,8 @@ public class EdmProviderImpl extends CsdlAbstractEdmProvider {
 		// Create function imports
 		List<CsdlFunctionImport> functionImports = new ArrayList<CsdlFunctionImport>();
 		functionImports.add(getFunctionImport(CONTAINER, FUNCTION_COUNT_CATEGORIES));
-
+		functionImports.addAll(this.odataMetadata.getFunctions().getOlingoFunctionImportList());
+		
 		// Create action imports
 		List<CsdlActionImport> actionImports = new ArrayList<CsdlActionImport>();
 		actionImports.add(getActionImport(CONTAINER, ACTION_RESET));

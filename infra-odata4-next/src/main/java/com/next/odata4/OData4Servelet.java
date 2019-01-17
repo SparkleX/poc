@@ -26,6 +26,7 @@ import com.next.odata4.processor.DebugProcessorImpl;
 import com.next.odata4.processor.EdmProviderImpl;
 import com.next.odata4.processor.EntityCollectionProcessorImpl;
 import com.next.odata4.processor.EntityProcessorImpl;
+import com.next.odata4.processor.PrimitiveProcessorImpl;
 
 @WebServlet(urlPatterns = "/odata4/*")
 public class OData4Servelet extends HttpServlet {
@@ -52,6 +53,7 @@ public class OData4Servelet extends HttpServlet {
 			handler.register(appContext.getBean(BatchProcessorImpl.class));
 			handler.register(appContext.getBean(EntityCollectionProcessorImpl.class));
 			handler.register(appContext.getBean(EntityProcessorImpl.class));
+			handler.register(appContext.getBean(PrimitiveProcessorImpl.class));
 			handler.process(req, resp);
 		} catch (RuntimeException e) {
 			logger.error("Server Error occurred in ExampleServlet", e);

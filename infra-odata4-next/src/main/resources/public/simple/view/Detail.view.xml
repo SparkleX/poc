@@ -1,0 +1,38 @@
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" controllerName="help.controller.Detail" xmlns:core="sap.ui.core">
+	<Page showNavButton="true" navButtonPress="onNavBack" title="Binding (Header Only)">
+		<content>
+
+					
+			<Label text="Id" />
+			<Input id="idId" value="{id}" valueLiveUpdate="true" />
+			<Label text="Business Partner" />
+			<Input id="id2" value="{bpId}" valueLiveUpdate="true" />
+			<Label text="Document Total" />
+			<Input id="id3" value="{docTotal}" valueLiveUpdate="true" />
+
+			<VBox>
+				<Label text="Business Partner (Select)" />
+				<Select forceSelection="false" autoAdjustWidth="true" selectedKey="{bpId}" items="{path: '/OCRDCollection', sorter:{path:'cardCode'}}">
+					<core:Item key="{id}" text="{cardCode}" />
+				</Select>
+
+				<CheckBox text="Status (CheckBox)" selected="true">
+				</CheckBox>
+				<Label text="Business Partner (Select with Conditions)" />
+				<Select forceSelection="false" autoAdjustWidth="true" selectedKey="{bpId}" items="{path: '/OCRDCollection', sorter:{path:'cardCode'}}">
+					<core:Item key="{id}" text="{cardCode}" />
+				</Select>
+				<Label text="Functions" />
+				<Text id="idFunction" text="{path: '/function()', type: 'sap.ui.model.odata.type.Int32'}" />
+			</VBox>
+		</content>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer />
+				<Button text="Save" type="Accept" press="onSave" />
+				<Button text="Delete" type="Reject" press="onDelete" />
+				<Button id="idAction" text="Action" press="onAction" />
+			</Toolbar>
+		</footer>		
+	</Page>
+</mvc:View>
