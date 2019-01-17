@@ -12,9 +12,9 @@ import java.util.Date;
 
 @SuppressWarnings("all")
 @Entity
-@Table(name="RDR1")
+@Table(name="OCRD")
 @ODataEntityType
-public class BmoRDR1
+public class BmoOCRD
 {
 	@Id
 	@GeneratedValue	
@@ -25,12 +25,17 @@ public class BmoRDR1
 	Integer Id;
     @Column
 	@ODataProperty
-	public Integer getParentId(){return ParentId;}
-	public void setParentId(Integer val){ParentId=val;}
-	Integer ParentId;
+	public String getCardCode(){return CardCode;}
+	public void setCardCode(String val){CardCode=val;}
+	String CardCode;
     @Column
 	@ODataProperty
-	public Integer getLineId(){return LineId;}
-	public void setLineId(Integer val){LineId=val;}
-	Integer LineId;
+	public String getCardName(){return CardName;}
+	public void setCardName(String val){CardName=val;}
+	String CardName;
+    @Column
+	@ODataProperty
+	public String getRemarks(){return Remarks;}
+	public void setRemarks(String val){Remarks=val;}
+	String Remarks;
 }

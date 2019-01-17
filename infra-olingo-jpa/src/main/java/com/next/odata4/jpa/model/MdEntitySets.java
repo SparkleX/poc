@@ -65,7 +65,7 @@ public class MdEntitySets extends ArrayList<MdEntitySet> implements Initializing
 			MdEntitySet entitySet = new MdEntitySet();
 			entitySet.setJavaType(entityClass);
 			entitySet.setServiceClass(serviceClazz);
-			String entityTypeName = entityClass.getAnnotation(ODataEntityType.class).name();
+			String entityTypeName = entityClass.getSimpleName();
 			FullQualifiedName type = new FullQualifiedName(NAMESPACE, entityTypeName);
 			entitySet.getEntitySet().setName(aEntitySets.name());
 			entitySet.getEntitySet().setType(type);

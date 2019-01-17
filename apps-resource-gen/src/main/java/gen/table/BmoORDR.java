@@ -1,11 +1,9 @@
 package gen.table;
 
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import com.next.odata4.annotation.ODataProperty;
 import com.next.odata4.annotation.ODataEntityType;
@@ -15,13 +13,13 @@ import java.util.Date;
 @SuppressWarnings("all")
 @Entity
 @Table(name="ORDR")
-@ODataEntityType(name="Document")
+@ODataEntityType
 public class BmoORDR
 {
 	@Id
+	@GeneratedValue	
     @Column
 	@ODataProperty
-	@GeneratedValue
 	public Integer getId(){return Id;}
 	public void setId(Integer val){Id=val;}
 	Integer Id;
@@ -45,4 +43,9 @@ public class BmoORDR
 	public Date getCreateDate(){return CreateDate;}
 	public void setCreateDate(Date val){CreateDate=val;}
 	Date CreateDate;
+    @Column
+	@ODataProperty
+	public String getDocStatus(){return DocStatus;}
+	public void setDocStatus(String val){DocStatus=val;}
+	String DocStatus;
 }

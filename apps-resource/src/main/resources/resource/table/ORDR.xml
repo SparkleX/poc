@@ -1,40 +1,42 @@
 <?xml version="1.0"?>
 <table xmlns="urn:next:table">
 	<name>ORDR</name>
-	<odataEntitySets>
-		<name>SalesOrders</name>
-		<type>Document</type>
-	</odataEntitySets>
-	<odataEntityType>Document</odataEntityType>
+	<key>Id</key>
+	<odata>true</odata>
 	<column>
 		<name>Id</name>
 		<type>int</type>
 		<length>0</length>
-		<odataName>Id</odataName>
+		<odata>true</odata>
 	</column>
 	<column>
 		<name>BpId</name>
 		<type>int</type>
 		<length>0</length>
-		<odataName>BusinessPartnerId</odataName>
+		<odata>true</odata>	
 	</column>
 	<column>
 		<name>Remarks</name>
 		<type>string</type>
 		<length>255</length>
-		<odataName>Remarks</odataName>
+		<odata>true</odata>	
 	</column>
 	<column>
 		<name>DocTotal</name>
 		<type>decimal</type>
 		<length>0</length>
-		<odataName>DocumentTotal</odataName>
+		<odata>true</odata>
 	</column>
 	<column>
 		<name>CreateDate</name>
 		<type>datetime</type>
 		<length>0</length>
-		<odataName>CreateDate</odataName>
+		<odata>true</odata>
 	</column>
-	<key>Id</key>
+	<column>
+		<name>DocStatus</name>
+		<type>string</type>
+		<length>1</length>
+		<odata>true</odata>
+	</column>
 </table>

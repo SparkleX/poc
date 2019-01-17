@@ -59,7 +59,7 @@ public class EntityTypeUtil
 	public <X> CsdlEntityType getEntityType(EntityType<X> entityType)
 	{
 		CsdlEntityType csdlEntityType = new CsdlEntityType();
-		String name = entityType.getJavaType().getAnnotation(ODataEntityType.class).name();
+		String name = entityType.getJavaType().getSimpleName();
 		csdlEntityType.setName(name);
 		List<CsdlProperty> properties = new ArrayList<>();
 		for(Attribute<?, ?> attr: entityType.getAttributes())

@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <table xmlns="urn:next:table">
 	<name>RDR1</name>
-	<odataEntityType>DocumentDetail</odataEntityType>
+	<key>Id</key>
+	<odata>true</odata>
  	<column>
 		<name>Id</name>
 		<type>int</type>
 		<length>0</length>
-		<odataName>Id</odataName>
+		<odata>true</odata>
 	</column>
 	<column>
 		<name>ParentId</name>
 		<type>int</type>
 		<length>0</length>
-		<odataName></odataName>
+		<odata>true</odata>
 	</column>
 	<column>
 		<name>LineId</name>
 		<type>int</type>
 		<length>0</length>
-		<odataName>LineNumber</odataName>
-	</column>
-	<key>Id</key>
+		<odata>true</odata>
+	</column>	
 </table>

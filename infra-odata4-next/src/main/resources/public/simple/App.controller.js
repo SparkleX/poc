@@ -15,7 +15,7 @@ sap.ui.define([
 		onLoad: function () {
 			var oView = this.getView();
 			var id = oView.byId("idId").getValue();
-			oView.bindElement("/SalesOrders("+id+")");
+			oView.bindElement("/ORDRCollection("+id+")");
 		},		
 		onUpdate: function (evt) 
 		{
@@ -29,7 +29,7 @@ sap.ui.define([
 		{
 			var oView = this.getView();
 			var oModel = oView.getModel();			
-			var listBinding = oModel.bindList("/SalesOrders");
+			var listBinding = oModel.bindList("/ORDRCollection");
 			var oCreate = listBinding.create({bpId:3});
 			oView.setBindingContext(oCreate)
 			//var oContext = oCreate.created();

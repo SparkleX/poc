@@ -6,49 +6,44 @@ import javax.persistence.EntityManager;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.next.odata4.annotation.ODataEntitySet;
 import com.next.odata4.config.ODataCrudService;
 
-import gen.table.BmoORDR;
+import gen.table.BmoOCRD;
 
-@Service
-@Transactional
-@ODataEntitySet(name = "SalesOrders")
-public class OrderService implements ODataCrudService<BmoORDR, Integer>
+public class BaseService<T, ID> implements ODataCrudService<T, ID>
 {
 	@Autowired
 	EntityManager em;
+	
 	@Override
-	public BmoORDR create(BmoORDR o)
-	{
+	public T create(T o) {
 		em.persist(o);
 		
 		return o;
 	}
-	
+
 	@Override
-	public void update(Integer id, BmoORDR o)
-	{
+	public void update(ID id, T o) {
 		try 
 		{
-			BmoORDR oOrgn = em.find(BmoORDR.class, id);
+			T oOrgn = (T) em.find(o.getClass(), id);
 			BeanUtils.copyProperties(oOrgn, o);
-			oOrgn.setId(id);
+			BeanUtils.setProperty(oOrgn, "id", id);
 			em.persist(oOrgn);
 		} catch (IllegalAccessException | InvocationTargetException e) 
 		{
 			throw new RuntimeException(e);
-		}		
+		}
+		
 	}
-	
-	
+
 	@Override
-	public void delete(Integer id)
-	{
-		BmoORDR o = em.find(BmoORDR.class, id);
+	public void delete(ID id) {
+		
+		BmoOCRD o = em.find(BmoOCRD.class, id);
 		em.remove(o);
+
 	}
+
 }

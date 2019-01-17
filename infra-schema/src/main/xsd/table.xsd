@@ -4,10 +4,9 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="name" type="xs:ID" />
-				<xs:element name="odataEntitySets" type="odataEntitySets" minOccurs="0"/>
-				<xs:element name="odataEntityType" type="xs:string" />
-				<xs:element name="column" type="column" minOccurs="1" maxOccurs="unbounded" />
 				<xs:element name="key" type="columnName" minOccurs="1" maxOccurs="unbounded" />
+				<xs:element name="odata" type="xs:boolean" default="false" />
+				<xs:element name="column" type="column" minOccurs="1" maxOccurs="unbounded" />				
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -16,21 +15,16 @@
 			<xs:element name="name" type="columnName" />
 			<xs:element name="type" type="columnType" />
 			<xs:element name="length" type="xs:int" />
-			<xs:element name="odataName" type="xs:string" />
+			<xs:element name="odata" type="xs:boolean" default="false" />
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="odataEntitySets">
-		<xs:sequence>
-			<xs:element name="name" type="xs:string" />
-			<xs:element name="type" type="xs:string" />
-		</xs:sequence>
-	</xs:complexType>	
 	<xs:simpleType name="columnType">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="string" />
 			<xs:enumeration value="int" />
 			<xs:enumeration value="decimal" />
 			<xs:enumeration value="datetime" />
+			
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="columnName">
