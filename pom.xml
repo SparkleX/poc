@@ -241,6 +241,17 @@
 				<artifactId>querydsl-core</artifactId>
 				<version>${querydsl.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.querydsl</groupId>
+				<artifactId>querydsl-sql</artifactId>
+				<version>${querydsl.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.7.25</version>
+			</dependency>
 
 			<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
 			<dependency>
@@ -260,5 +271,7 @@
 		<module>infra-odata4</module>
 		<module>infra-odata4-next</module>
 		<module>infra-olingo-jpa</module>
+		<module>apps-repo-query</module>
+		<module>apps-web</module>
 	</modules>
 </project>
