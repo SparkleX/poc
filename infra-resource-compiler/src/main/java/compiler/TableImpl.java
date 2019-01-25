@@ -1,6 +1,6 @@
 package compiler;
 
-import com.next.infra.schema.Table;
+import com.next.schema.table.Table;
 
 public class TableImpl  extends Table
 {

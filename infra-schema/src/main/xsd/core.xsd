@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:next:core" xmlns="urn:next:core" elementFormDefault="qualified">
+
+	<xs:complexType name="translation">
+			<xs:sequence>
+				<xs:element name="name" type="xs:string" />
+				<xs:element name="key" type="inner"/>
+			</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="inner">
+			<xs:sequence>
+				<xs:element name="id" type="xs:string" />
+			</xs:sequence>
+	</xs:complexType>
+	
+	
+	<xs:complexType name="translation1">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="sId" type="xs:int" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

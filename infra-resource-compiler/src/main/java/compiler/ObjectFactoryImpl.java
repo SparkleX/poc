@@ -10,9 +10,11 @@ package compiler;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
-import com.next.infra.schema.Column;
-import com.next.infra.schema.ObjectFactory;
-import com.next.infra.schema.Table;
+import com.next.schema.core.Translation;
+import com.next.schema.table.Column;
+import com.next.schema.table.ObjectFactory;
+import com.next.schema.table.Table;
+
 
 
 @XmlRegistry
@@ -27,4 +29,5 @@ public class ObjectFactoryImpl extends ObjectFactory
     public Table createTable() {
         return new TableImpl();
     }
+
 }

@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.io.FileUtils;
@@ -21,11 +22,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
-import com.fasterxml.jackson.databind.AnnotationIntrospector;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector;
-import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
-import com.next.infra.schema.Table;
+import com.next.schema.table.Table;
 
 import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
@@ -45,21 +42,24 @@ public class TableCompiler implements InitializingBean {
 	JAXBContext jaxbContext;
 	Unmarshaller jaxbUnmarshaller;
 
-	XmlMapper mapper;
 	
 	TableCompiler() throws JAXBException {
 		jaxbContext = JAXBContext.newInstance(Table.class);
 		jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 		jaxbUnmarshaller.setProperty("com.sun.xml.bind.ObjectFactory",new ObjectFactoryImpl());
+		
 
-        mapper = new XmlMapper();
-        mapper.registerModule(new JaxbAnnotationModule());
 	}
 
 	void genarateCode(Path path) {
 		try {
 			File xmlFile = path.toFile();
 			Table oTable = (Table) jaxbUnmarshaller.unmarshal(xmlFile);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			jaxbMarshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new DefaultNamespacePrefixMapper());
+			jaxbMarshaller.marshal(oTable, new File("C:/dev/1.xml"));
+			
 			
 			//Table oTable = mapper.readValue(xmlFile, Table.class);
 			StringWriter sw = new StringWriter();

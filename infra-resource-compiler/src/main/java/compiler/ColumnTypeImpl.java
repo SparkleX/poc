@@ -1,6 +1,6 @@
 package compiler;
 
-import com.next.infra.schema.ColumnType;
+import com.next.schema.table.ColumnType;
 
 public class ColumnTypeImpl 
 {

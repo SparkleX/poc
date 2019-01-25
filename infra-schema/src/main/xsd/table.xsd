@@ -1,12 +1,14 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:next:table" xmlns="urn:next:table" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:next:table" xmlns="urn:next:table" xmlns:core="urn:next:core" elementFormDefault="qualified">
+	<xs:import namespace="urn:next:core" schemaLocation="core.xsd" />
 	<xs:element name="table">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="name" type="xs:ID" />
 				<xs:element name="key" type="columnName" minOccurs="1" maxOccurs="unbounded" />
 				<xs:element name="odata" type="xs:boolean" default="false" />
-				<xs:element name="column" type="column" minOccurs="1" maxOccurs="unbounded" />				
+				<xs:element name="column" type="column" minOccurs="1" maxOccurs="unbounded" />
+				<xs:element name="test" type="core:translation"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -24,7 +26,7 @@
 			<xs:enumeration value="int" />
 			<xs:enumeration value="decimal" />
 			<xs:enumeration value="datetime" />
-			
+
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="columnName">

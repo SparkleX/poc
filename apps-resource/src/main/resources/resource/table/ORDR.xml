@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<table xmlns="urn:next:table">
+<table xmlns="urn:next:table"  xmlns:core="urn:next:core">
 	<name>ORDR</name>
 	<key>Id</key>
 	<odata>true</odata>
@@ -39,4 +39,10 @@
 		<length>1</length>
 		<odata>true</odata>
 	</column>
+	<test>
+		<core:name>123</core:name>
+		<core:key>
+			<core:id>12</core:id>
+		</core:key>
+	</test>
 </table>

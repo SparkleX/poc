@@ -1,6 +1,6 @@
 package compiler;
 
-import com.next.infra.schema.Column;
+import com.next.schema.table.Column;
 
 public class ColumnImpl extends Column
 {

@@ -14,30 +14,14 @@
 				<version>2.4</version>
 				<executions>
 					<execution>
-						<id>xjc</id>
+						<id>schema</id>
 						<goals>
 							<goal>xjc</goal>
 						</goals>
-						<configuration>
-							<packageName>com.next.infra.schema</packageName>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 		</plugins>
 	</build>
-	<dependencies>
-		<dependency>
-			<groupId>org.glassfish.jaxb</groupId>
-			<artifactId>jaxb-runtime</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-xml</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.module</groupId>
-			<artifactId>jackson-module-jaxb-annotations</artifactId>
-		</dependency>
-	</dependencies>
+
 </project>
