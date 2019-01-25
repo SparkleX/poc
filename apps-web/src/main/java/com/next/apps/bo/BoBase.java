@@ -19,6 +19,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.querydsl.core.types.Predicate;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
 public class BoBase<T_Bean, T_Repo extends QuerydslPredicateExecutor<T_Bean>> 
 {
 	@Autowired
@@ -27,12 +32,19 @@ public class BoBase<T_Bean, T_Repo extends QuerydslPredicateExecutor<T_Bean>>
 	
 	@GetMapping("")
 	@ResponseBody
+	@ApiOperation(value="Search note", notes="Search note",produces = "application/json")
 	protected Iterable<T_Bean> search(@QuerydslPredicate Predicate predicate) {
 	    return repo.findAll(predicate);
 	}
 	
 	@GetMapping("/{id}")
-	public T_Bean get(@PathVariable Integer id) 
+	@ApiOperation(value="Get by key", notes="Get by key",produces = "application/json")
+	@ApiResponses(value = 
+		{
+				@ApiResponse(code = 405,message = "Invalid input",response = Integer.class)
+		})
+
+	public T_Bean get(@ApiParam("ID to get") @PathVariable Integer id) 
 	{
 		JpaRepository<T_Bean,Object> repoJpa = (JpaRepository<T_Bean,Object>)repo;
 		Optional<T_Bean> data = repoJpa.findById(id);
@@ -45,7 +57,7 @@ public class BoBase<T_Bean, T_Repo extends QuerydslPredicateExecutor<T_Bean>>
 	
 	
 	@PostMapping("")
-	public ResponseEntity<Object> createStudent(@RequestBody T_Bean data) {
+	public ResponseEntity<Object> create(@RequestBody T_Bean data) {
 		JpaRepository<T_Bean,Object> repoJpa = (JpaRepository<T_Bean,Object>)repo;
 		T_Bean savedData = repoJpa.save(data);
 
@@ -71,7 +83,7 @@ public class BoBase<T_Bean, T_Repo extends QuerydslPredicateExecutor<T_Bean>>
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteStudent(@PathVariable Integer id) {
+	public void delete(@PathVariable Integer id) {
 		JpaRepository<T_Bean,Object> repoJpa = (JpaRepository<T_Bean,Object>)repo;
 		repoJpa.deleteById(id);
 	}

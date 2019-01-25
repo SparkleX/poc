@@ -7,9 +7,11 @@ import com.next.apps.repo.query.RepoORDR;
 import com.querydsl.core.types.Predicate;
 
 import gen.table.BmoORDR;
+import io.swagger.annotations.Api;
 
 @RestController
 @RequestMapping("/api/ordr")
+@Api(tags= "Sales Orders")
 public class BoORDR extends BoBase<BmoORDR,RepoORDR>
 {
 	@Override
