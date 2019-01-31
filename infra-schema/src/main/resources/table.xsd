@@ -15,7 +15,7 @@
 	<xs:complexType name="column">
 		<xs:sequence>
 			<xs:element name="name" type="columnName" />
-			<xs:element name="type" type="columnType" />
+			<xs:element name="type" type="columnType" default="int"/>
 			<xs:element name="length" type="xs:int" />
 			<xs:element name="odata" type="xs:boolean" default="false" />
 		</xs:sequence>
