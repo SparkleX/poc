@@ -14,8 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @DataJpaTest
 public class RepoTest {
 
-	@Autowired
-	private TestEntityManager entityManager;
+	//@Autowired
+	//private TestEntityManager entityManager;
 
 	@Autowired
 	private RepoORDR repository;

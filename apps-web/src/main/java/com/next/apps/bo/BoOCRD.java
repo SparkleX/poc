@@ -8,7 +8,6 @@ import com.querydsl.core.types.Predicate;
 
 import gen.table.BmoOCRD;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModel;
 
 
 @RestController

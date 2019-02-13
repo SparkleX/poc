@@ -19,11 +19,12 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.querydsl.core.types.Predicate;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiResponse;
+
+@SuppressWarnings("all")
 public class BoBase<T_Bean, T_Repo extends QuerydslPredicateExecutor<T_Bean>> 
 {
 	@Autowired
@@ -36,6 +37,7 @@ public class BoBase<T_Bean, T_Repo extends QuerydslPredicateExecutor<T_Bean>>
 	protected Iterable<T_Bean> search(@QuerydslPredicate Predicate predicate) {
 	    return repo.findAll(predicate);
 	}
+	
 	
 	@GetMapping("/{id}")
 	@ApiOperation(value="Get by key", notes="Get by key",produces = "application/json")
@@ -54,6 +56,7 @@ public class BoBase<T_Bean, T_Repo extends QuerydslPredicateExecutor<T_Bean>>
 
 		return data.get();
 	}
+	
 	
 	
 	@PostMapping("")
