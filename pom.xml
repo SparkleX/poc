@@ -302,5 +302,6 @@
 		<module>apps-repo-query</module>
 		<module>apps-web</module>
 		<module>apps-service</module>
+		<module>apps-controller</module>
 	</modules>
 </project>
