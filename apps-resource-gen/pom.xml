@@ -18,7 +18,7 @@
                             <goal>jpa-export</goal>
                         </goals>
                         <configuration>
-                            <targetFolder>target/generated-sources/java</targetFolder>
+                            <targetFolder>target/generated-sources/java11</targetFolder>
                             <packages>gen.table</packages>
                         </configuration>
                     </execution>
@@ -36,10 +36,5 @@
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-apt</artifactId>
         </dependency>		
-		<dependency>
-			<groupId>com.next</groupId>
-			<artifactId>infra-olingo-jpa</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 </project>

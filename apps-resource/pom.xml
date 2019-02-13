@@ -22,7 +22,7 @@
 					<validationSets>
 						<validationSet>
 							<dir>src/main/resources/resource/table</dir>
-							<systemId>../infra-schema/src/main/xsd/table.xsd</systemId>
+							<systemId>../infra-schema/src/main/resources/table.xsd</systemId>
 						</validationSet>
 					</validationSets>
 				</configuration>

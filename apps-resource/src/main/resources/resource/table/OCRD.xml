@@ -2,31 +2,25 @@
 <table xmlns="urn:next:table"  xmlns:core="urn:next:core">
 	<name>OCRD</name>
 	<key>Id</key>
-	<odata>true</odata>
-	
 	<column>
 		<name>Id</name>
 		<type>int</type>
 		<length>0</length>
-		<odata>true</odata>
 	</column>
 	<column>
 		<name>CardCode</name>
 		<type>string</type>
 		<length>40</length>
-		<odata>true</odata>
 	</column>
 	<column>
 		<name>CardName</name>
 		<type>string</type>
 		<length>127</length>
-		<odata>true</odata>
 	</column>
 	<column>
 		<name>Remarks</name>
 		<type>string</type>
 		<length>255</length>
-		<odata>true</odata>
 	</column>
 	<test>
 		<core:name>123</core:name>
