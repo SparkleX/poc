@@ -1,4 +1,4 @@
-package com.next.apps.bo;
+package com.next.apps.controller;
 
 import java.net.URI;
 import java.util.Optional;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.next.apps.service.ServiceBase;
 import com.querydsl.core.types.Predicate;
 
 import io.swagger.annotations.ApiOperation;
@@ -25,17 +26,18 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiResponse;
 
 @SuppressWarnings("all")
-public class BoBase<T_Bean, T_Repo extends QuerydslPredicateExecutor<T_Bean>> 
+public class ControllerBase<T_Bean, 
+	T_Service extends ServiceBase> 
 {
 	@Autowired
-	T_Repo repo;
+	T_Service service;
 	
 	
 	@GetMapping("")
 	@ResponseBody
 	@ApiOperation(value="Search note", notes="Search note",produces = "application/json")
 	protected Iterable<T_Bean> search(@QuerydslPredicate Predicate predicate) {
-	    return repo.findAll(predicate);
+	    return service.findAll(predicate);
 	}
 	
 	
@@ -48,8 +50,7 @@ public class BoBase<T_Bean, T_Repo extends QuerydslPredicateExecutor<T_Bean>>
 
 	public T_Bean get(@ApiParam("ID to get") @PathVariable Integer id) 
 	{
-		JpaRepository<T_Bean,Object> repoJpa = (JpaRepository<T_Bean,Object>)repo;
-		Optional<T_Bean> data = repoJpa.findById(id);
+		Optional<T_Bean> data = service.get(id);
 
 		if (!data.isPresent())
 			throw new RuntimeException("no data found id:" + id);
@@ -61,8 +62,7 @@ public class BoBase<T_Bean, T_Repo extends QuerydslPredicateExecutor<T_Bean>>
 	
 	@PostMapping("")
 	public ResponseEntity<Object> create(@RequestBody T_Bean data) {
-		JpaRepository<T_Bean,Object> repoJpa = (JpaRepository<T_Bean,Object>)repo;
-		T_Bean savedData = repoJpa.save(data);
+		service.create(data);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(100).toUri();
@@ -74,20 +74,22 @@ public class BoBase<T_Bean, T_Repo extends QuerydslPredicateExecutor<T_Bean>>
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<T_Bean> update(@RequestBody T_Bean data, @PathVariable Integer id) {
-		JpaRepository<T_Bean,Object> repoJpa = (JpaRepository<T_Bean,Object>)repo;
-		Optional<T_Bean> dataOptional = repoJpa.findById(id);
+		service.update(data, id);
+		//JpaRepository<T_Bean,Object> repoJpa = (JpaRepository<T_Bean,Object>)repo;
+		//Optional<T_Bean> dataOptional = repoJpa.findById(id);
 
-		if (!dataOptional.isPresent())
-			return ResponseEntity.notFound().build();
+		//if (!dataOptional.isPresent())
+			//return ResponseEntity.notFound().build();
 		
-		repoJpa.save(data);
+		//repoJpa.save(data);
 
 		return ResponseEntity.noContent().build();
 	}
 	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Integer id) {
-		JpaRepository<T_Bean,Object> repoJpa = (JpaRepository<T_Bean,Object>)repo;
-		repoJpa.deleteById(id);
+		//JpaRepository<T_Bean,Object> repoJpa = (JpaRepository<T_Bean,Object>)repo;
+		//repoJpa.deleteById(id);
+		service.delete(id);
 	}
 }

@@ -47,6 +47,11 @@
 		<dependency>
  			<groupId>com.h2database</groupId>
  			<artifactId>h2</artifactId>
- 		</dependency>		
+ 		</dependency>
+		<dependency>
+			<groupId>com.next</groupId>
+			<artifactId>apps-service</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

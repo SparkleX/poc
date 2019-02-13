@@ -301,5 +301,6 @@
 		<module>infra-olingo-jpa</module>
 		<module>apps-repo-query</module>
 		<module>apps-web</module>
+		<module>apps-service</module>
 	</modules>
 </project>

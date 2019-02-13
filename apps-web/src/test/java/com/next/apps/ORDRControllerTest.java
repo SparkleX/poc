@@ -17,14 +17,17 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.next.apps.bo.BoOCRD;
-import com.next.apps.repo.query.RepoOCRD;
+import com.next.apps.controller.OCRDController;
+import com.next.apps.controller.ORDRController;
+import com.next.apps.service.OCRDService;
+import com.next.apps.service.ORDRService;
 
 import gen.table.BmoOCRD;
+import gen.table.BmoORDR;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(BoOCRD.class)
-public class WebTest {
+@WebMvcTest(ORDRController.class)
+public class ORDRControllerTest {
 
 	@Autowired
 	private MockMvc mvc;
@@ -33,18 +36,18 @@ public class WebTest {
 	private ObjectMapper json;
 	
 	@MockBean
-	private RepoOCRD repoOCRD;
+	private ORDRService svcOCRD;
 
 	@Test
 	public void testExample() throws Exception 
 	{
-		BmoOCRD bmoOCRD = new BmoOCRD();
-		Optional<BmoOCRD> rt = Optional.of(bmoOCRD); 
+		BmoORDR bmoOCRD = new BmoORDR();
+		Optional<BmoORDR> rt = Optional.of(bmoOCRD); 
 		
-		given(this.repoOCRD.findById(1)).willReturn(rt);
+		given(this.svcOCRD.get(1)).willReturn(rt);
 		String str = this.json.writeValueAsString(bmoOCRD);
 		this.mvc.perform(
-					get("/api/ocrd/1")
+					get("/api/ordr/1")
 					.accept(MediaType.APPLICATION_JSON)
 					)
 				.andExpect(status().isOk())
