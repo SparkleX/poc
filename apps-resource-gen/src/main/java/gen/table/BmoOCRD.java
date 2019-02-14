@@ -18,6 +18,8 @@ public class BmoOCRD
     @Column
 	public Integer getId(){return Id;}
 	public void setId(Integer val){Id=val;}
+	
+
 	Integer Id;
     @Column
 	public String getCardCode(){return CardCode;}

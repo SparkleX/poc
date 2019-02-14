@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.next.apps.service.ServiceBase;
 import com.querydsl.core.types.Predicate;
 
+import gen.table.BmoORDR;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponses;
@@ -31,7 +32,6 @@ public class ControllerBase<T_Bean,
 {
 	@Autowired
 	T_Service service;
-	
 	
 	@GetMapping("")
 	@ResponseBody

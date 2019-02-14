@@ -13,7 +13,7 @@ import io.swagger.annotations.Api;
 @RestController
 @RequestMapping("/api/ocrd")
 @Api(tags= "Business Partners")
-public class OCRDController extends ControllerBase<BmoOCRD,OCRDService>
+public class OCRDController extends ControllerBase<BmoOCRD, OCRDService>
 {
 	
 

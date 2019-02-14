@@ -17,12 +17,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.next.apps.controller.OCRDController;
 import com.next.apps.controller.ORDRController;
-import com.next.apps.service.OCRDService;
 import com.next.apps.service.ORDRService;
 
-import gen.table.BmoOCRD;
 import gen.table.BmoORDR;
 
 @RunWith(SpringRunner.class)

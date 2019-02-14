@@ -5,21 +5,21 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
-import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.querydsl.core.types.Predicate;
-
+@SuppressWarnings("unchecked")
 public class ServiceBase<T_Bean, T_Repo extends QuerydslPredicateExecutor<T_Bean>> 
 {
 	@Autowired
 	T_Repo repo;
 	
 	
-	public Iterable<T_Bean> findAll(@QuerydslPredicate Predicate predicate) 
+	public Iterable<T_Bean> findAll(Predicate predicate) 
 	{
 	    return repo.findAll(predicate);
 	}
+	
 	
 	
 	public Optional<T_Bean> get(Integer id) 
