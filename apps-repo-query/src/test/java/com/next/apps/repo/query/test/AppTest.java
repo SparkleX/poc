@@ -14,7 +14,5 @@ import gen.table.BmoORDR;
 @EnableJpaRepositories(basePackageClasses = RepoORDR.class)
 public class AppTest {
 
-    public static void main(String[] args) {
-        SpringApplication.run(AppTest.class, args);
-    }
+
 }

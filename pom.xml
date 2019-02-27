@@ -58,12 +58,6 @@
 				<artifactId>spring-boot-starter-data-jpa</artifactId>
 				<version>2.1.1.RELEASE</version>
 			</dependency>
-			<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
-			<dependency>
-				<groupId>commons-beanutils</groupId>
-				<artifactId>commons-beanutils</artifactId>
-				<version>1.9.3</version>
-			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
@@ -120,12 +114,6 @@
 				<artifactId>mysql-connector-java</artifactId>
 				<version>8.0.13</version>
 			</dependency>
-			<!-- https://mvnrepository.com/artifact/org.apache.olingo/olingo-odata2-api-annotation -->
-			<dependency>
-				<groupId>org.apache.olingo</groupId>
-				<artifactId>olingo-odata2-api-annotation</artifactId>
-				<version>2.0.10</version>
-			</dependency>
 			<dependency>
 				<groupId>org.glassfish.jaxb</groupId>
 				<artifactId>jaxb-runtime</artifactId>
@@ -157,21 +145,11 @@
 				<artifactId>gson</artifactId>
 				<version>2.8.5</version>
 			</dependency>
-			<dependency>
-				<groupId>org.glassfish.jaxb</groupId>
-				<artifactId>jaxb-runtime</artifactId>
-				<version>2.3.1</version>
-			</dependency>
 			<!-- https://mvnrepository.com/artifact/org.apache.olingo/olingo-odata2-api-annotation -->
 			<dependency>
 				<groupId>org.apache.olingo</groupId>
 				<artifactId>olingo-odata2-api-annotation</artifactId>
 				<version>2.0.10</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.olingo</groupId>
-				<artifactId>odata-commons-core</artifactId>
-				<version>4.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>com.sap.olingo</groupId>
@@ -182,11 +160,6 @@
 				<groupId>com.sap.olingo</groupId>
 				<artifactId>odata-jpa-metadata</artifactId>
 				<version>0.2.10-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.olingo</groupId>
-				<artifactId>odata-server-api</artifactId>
-				<version>4.5.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.yaml</groupId>
@@ -298,22 +271,27 @@
 				<artifactId>spring-data-rest-webmvc</artifactId>
 				<version>3.1.5.RELEASE</version>
 			</dependency>
-
 		</dependencies>
 	</dependencyManagement>
-
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>xml-maven-plugin</artifactId>
+					<version>1.0.2</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 	<modules>
 		<module>infra-schema</module>
 		<module>apps-resource</module>
 		<module>infra-resource-compiler</module>
-		<module>apps-resource-gen</module>
-		<module>infra-odata2</module>
-		<module>infra-odata4</module>
-		<module>infra-odata4-next</module>
-		<module>infra-olingo-jpa</module>
 		<module>apps-repo-query</module>
 		<module>apps-web</module>
 		<module>apps-service</module>
 		<module>apps-controller</module>
+		<module>infra-resource-plugin</module>
 	</modules>
 </project>

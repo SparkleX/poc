@@ -10,7 +10,6 @@ package compiler;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
-import com.next.schema.core.Translation;
 import com.next.schema.table.Column;
 import com.next.schema.table.ObjectFactory;
 import com.next.schema.table.Table;

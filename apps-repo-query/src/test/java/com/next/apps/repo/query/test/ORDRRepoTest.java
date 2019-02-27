@@ -2,7 +2,6 @@ package com.next.apps.repo.query.test;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 //import static org.assertj.core.api.Assertions.*;
@@ -11,13 +10,10 @@ import com.next.apps.repo.query.RepoORDR;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class RepoTest {
+public class ORDRRepoTest extends RepoTestBase<RepoORDR>{
 
-	//@Autowired
-	//private TestEntityManager entityManager;
 
-	@Autowired
-	private RepoORDR repository;
+
 
 	@Test
 	public void testExample() throws Exception {
