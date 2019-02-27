@@ -36,13 +36,14 @@
 						<goals>
 							<goal>gen</goal>
 						</goals>
+						<phase>generate-sources</phase>
 						<configuration>
 							<targetFolder>target/generated-sources/java</targetFolder>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
+     		<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
 				<version>3.0.0</version>
@@ -64,27 +65,8 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.0.1</version>
-				<configuration>
-				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>com.querydsl</groupId>
-				<artifactId>querydsl-maven-plugin</artifactId>
-				<version>4.2.1</version>
-				<executions>
-					<execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>jpa-export</goal>
-                        </goals>
-                        <configuration>
-                            <targetFolder>target/generated-sources/java</targetFolder>
-                            <packages>gen.table</packages>
-                        </configuration>
-                    </execution>
-				</executions>
-			</plugin>				
+			
 		</plugins>
 	</build>
 

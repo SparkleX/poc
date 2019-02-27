@@ -281,6 +281,16 @@
 					<artifactId>xml-maven-plugin</artifactId>
 					<version>1.0.2</version>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>3.0.1</version>
+				</plugin>
+				<plugin>
+					<groupId>com.querydsl</groupId>
+					<artifactId>querydsl-maven-plugin</artifactId>
+					<version>4.2.1</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
