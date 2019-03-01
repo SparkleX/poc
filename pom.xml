@@ -302,6 +302,5 @@
 		<module>apps-web</module>
 		<module>apps-service</module>
 		<module>apps-controller</module>
-		<module>infra-resource-plugin</module>
 	</modules>
 </project>
